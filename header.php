@@ -8,9 +8,9 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-transcluent">
     <meta name="format-detection" content="telephone=no">
-    
-    <link rel="preload" as="script" href="<?php echo DT_ASSETS_URL ?>/dist/js/scripts.min.js">
-    <link rel="preload" as="style" href="<?php echo DT_ASSETS_URL ?>/dist/css/styles.min.css">
+
+    <link rel="preload" as="script" href="<?php echo ASSETS_URL ?>/dist/js/scripts.min.js">
+    <link rel="preload" as="style" href="<?php echo ASSETS_URL ?>/dist/css/styles.min.css">
 	<?php wp_head(); ?>
 
     <script>
@@ -25,8 +25,4 @@
 
 <div class="template-wrapper">
 
-	<?php $args = array(
-		'theme_location' => 'main-menu',
-		'container'      => 'ul',
-	);
-	wp_nav_menu($args); ?>
+	<?php get_template_part('parts/nav-desktop') ?>

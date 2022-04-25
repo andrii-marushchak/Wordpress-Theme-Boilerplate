@@ -1,12 +1,10 @@
 <?php
 
 // Constants
-define('DT_THEME_PATH', get_template_directory());
-define('DT_THEME_URL', get_template_directory_uri());
-define('DT_ASSETS_URL', get_template_directory_uri() . '/assets');
-define('DT_ASSETS_PATH', get_template_directory() . '/assets');
-define('DT_PATH', get_template_directory() . '/theme');
-define('DT_URL', get_template_directory_uri() . '/theme');
+define('THEME_PATH', get_template_directory());
+define('THEME_URL', get_template_directory_uri());
+define('ASSETS_URL', get_template_directory_uri() . '/assets');
+define('ASSETS_PATH', get_template_directory() . '/assets');
 
 // ACF Config
 if (class_exists('acf')) {
@@ -22,6 +20,9 @@ get_template_part('theme/general');
 
 // Validation
 get_template_part('theme/additional/validation');
+
+// Helpers Functions
+get_template_part('theme/functions/helpers');
 
 // Navigation
 get_template_part('theme/functions/nav');

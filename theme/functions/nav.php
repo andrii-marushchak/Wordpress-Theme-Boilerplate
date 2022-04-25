@@ -1,6 +1,6 @@
 <?php
 
-function um_init_navigation() {
+function theme_name_init_navigation() {
 	register_nav_menus(
 		array(
 			'main-menu' => 'Main Menu',
@@ -8,11 +8,11 @@ function um_init_navigation() {
 	);
 }
 
-add_action( 'after_setup_theme', 'um_init_navigation' );
+add_action( 'after_setup_theme', 'theme_name_init_navigation' );
 
 
 // Menu foreach setup (link icons | mega-menu | disabled link)
-function um_menu_foreach( $items, $args ) {
+function theme_name_menu_foreach( $items, $args ) {
 
 	$i = 0;
 	foreach ( $items as & $item ) {
@@ -33,7 +33,7 @@ function um_menu_foreach( $items, $args ) {
 	return $items;
 }
 
-add_filter( 'wp_nav_menu_objects', 'um_menu_foreach', 10, 2 );
+add_filter( 'wp_nav_menu_objects', 'theme_name_menu_foreach', 10, 2 );
 
 
 

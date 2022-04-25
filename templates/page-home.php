@@ -1,4 +1,7 @@
-<?php /* Template Name: Homepage */ ?>
+<?php
+/* Template Name: Homepage */
+/* Template Post Type: page  */
+?>
 
 <?php get_header(); ?>
 

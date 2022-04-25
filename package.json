@@ -1,47 +1,68 @@
 {
-  "name": "wp-theme",
-  "version": "2.0.0",
-  "description": "Set **ProxyServer** to true if you need proxy server\r ```js\r const ProxyServer = false;\r const domain = 'localhost/gulp/app';\r const root = 'app';\r ```",
+  "name": "gulp-4-webpack-wordpress-theme-boilerplate",
+  "version": "1.0.0",
+  "description": "Gulp 4 + Webpack WordPress Theme Boilerplate",
+  "keywords": [
+    "wp",
+    "wordpress",
+    "html",
+    "pug",
+    "css",
+    "sass",
+    "bootstrap",
+    "javascript",
+    "babel",
+    "es6",
+    "jquery",
+    "gulp",
+    "webpack"
+  ],
   "main": "gulpfile.js",
+  "type": "module",
+  "scripts": {
+    "dev": "gulp dev",
+    "build": "gulp build",
+    "zip": "gulp zip",
+    "deploy": "gulp deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrii-marushchak/Wordpress-Theme-Boilerplate"
+  },
+  "author": "Andrii Marushchak",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andrii-marushchak/Wordpress-Theme-Boilerplate/issues"
+  },
+  "homepage": "https://github.com/andrii-marushchak/Wordpress-Theme-Boilerplate#readme",
   "dependencies": {
     "get-scrollbar-width": "^1.0.5",
     "jquery": "^3.6.0",
-    "npm": "^6.14.15"
+    "npm": "^8.7.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.15.0",
-    "@babel/plugin-transform-runtime": "^7.15.0",
-    "@babel/preset-env": "^7.15.0",
-    "babel-loader": "^8.2.2",
-    "babel-plugin-dynamic-import-node-babel-7": "^2.0.7",
-    "babel-plugin-root-import": "^6.6.0",
-    "babel-polyfill": "^6.26.0",
-    "browser-sync": "^2.27.5",
+    "autoprefixer": "^10.4.4",
+    "babel-loader": "^8.2.5",
+    "browser-sync": "^2.27.9",
+    "cssnano": "^5.1.7",
     "del": "^6.0.0",
     "gulp": "^4.0.2",
-    "gulp-autoprefixer": "^7.0.1",
-    "gulp-babel": "^8.0.0",
-    "gulp-clean": "^0.4.0",
-    "gulp-clean-css": "^4.3.0",
-    "gulp-htmlmin": "^5.0.1",
-    "gulp-image": "^6.2.1",
-    "gulp-imagemin": "^7.1.0",
-    "gulp-notify": "^3.2.0",
+    "gulp-filesize": "^0.0.6",
+    "gulp-if": "^3.0.0",
+    "gulp-imagemin": "^8.0.0",
+    "gulp-newer": "^1.4.0",
+    "gulp-node-env": "^2.0.1",
+    "gulp-notify": "^4.0.0",
     "gulp-plumber": "^1.2.1",
-    "gulp-rename": "^2.0.0",
-    "gulp-sass": "^4.1.1",
-    "gulp-sourcemaps": "^2.6.5",
-    "gulp-uglify-es": "^2.0.0",
+    "gulp-postcss": "^9.0.1",
+    "gulp-sass": "^5.1.0",
+    "gulp-sourcemaps": "^3.0.0",
     "gulp-wp-pot": "^2.5.0",
-    "node-sass": "^4.14.1",
-    "plumber": "^0.4.8",
-    "through2": "^3.0.1",
-    "webpack": "^5.51.1",
-    "webpack-stream": "^6.1.2"
-  },
-  "scripts": {
-    "start": "gulp"
-  },
-  "author": "",
-  "license": "ISC"
+    "imagemin-jpegoptim": "^8.0.0",
+    "postcss-combine-media-query": "^1.0.1",
+    "sass": "^1.50.1",
+    "through2": "^4.0.2",
+    "webpack": "^5.72.0",
+    "webpack-stream": "^7.0.0"
+  }
 }

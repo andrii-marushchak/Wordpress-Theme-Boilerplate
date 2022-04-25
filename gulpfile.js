@@ -1,167 +1,322 @@
-const gulp = require('gulp'),
-    webpack = require("webpack-stream"),
-    browserSync = require('browser-sync').create(),
-    babel = require('gulp-babel'),
-    uglify = require('gulp-uglify-es').default,
-    sass = require("gulp-sass"),
-    cleanCSS = require('gulp-clean-css'),
-    autoprefixer = require('gulp-autoprefixer'),
-    through = require('through2'),
-    sourcemaps = require('gulp-sourcemaps'),
-    rename = require("gulp-rename"),
-    del = require("del"),
-    plumber = require("gulp-plumber"),
-    imagemin = require('gulp-imagemin'),
-    image = require('gulp-image'),
-    wpPot = require('gulp-wp-pot');
+// Node
+import del from "del"
+import through from "through2"
 
-const domain = 'localhost/um';
-const webpackModules = true;
+// Gulp
+import gulp from "gulp"
+import plumber from "gulp-plumber"
+import sourcemaps from "gulp-sourcemaps"
+import gulpif from "gulp-if"
+import notify from "gulp-notify"
+import size from 'gulp-filesize'
+
+// SASS
+import dartSass from 'sass'
+import gulpSass from 'gulp-sass'
+
+// PostCSS
+import postcss from 'gulp-postcss'
+import autoprefixer from 'autoprefixer'
+import cssnano from 'cssnano'
+import combineMediaQueries from 'postcss-combine-media-query'
+
+// Images
+import newer from "gulp-newer"
+import imagemin, {gifsicle, mozjpeg, optipng, svgo} from 'gulp-imagemin'
+import imageminJpegoptim from 'imagemin-jpegoptim';
+
+// JS & Webpack
+import webpack from "webpack-stream"
+
+// WordPress
+import wpPot from 'gulp-wp-pot'
+
+
+// Enviroment
+import {setDevelopmentEnvironment, setProductionEnvironment, isProduction, isDevelopment} from 'gulp-node-env'
+
+setDevelopmentEnvironment()
+
+// BrowserSync
+import bs from "browser-sync"
+
+const browserSync = bs.create()
+
+const srcFolder = '.'
+const buildFolder = './assets/dist/'
 
 const paths = {
+    php: {
+        src: [
+            '*.php',
+            '**/*.php',
+            'theme/**/*.php',
+            'pages/**/*.php',
+            'templates/**/*.php',
+            'template-parts/**/*.php',
+            'inc/**/*.php',
+        ],
+    },
     scss: {
         src: [
-            'assets/css/*.scss',
-            'assets/css/components/*.scss',
-            'assets/css/other/*.scss',
-            'assets/css/pages/*.scss',
-            'assets/css/sections/*.scss',
+            `${srcFolder}/assets/css/*.scss`,
+            `${srcFolder}/assets/css/components/*.scss`,
+            `${srcFolder}/assets/css/other/*.scss`,
+            `${srcFolder}/assets/css/pages/*.scss`,
+            `${srcFolder}/assets/css/sections/*.scss`,
+            `${srcFolder}/assets/css/vendors/*.scss`,
         ],
-        dest: 'assets/dist/css/'
+        dest: `${buildFolder}/css/`
     },
     js: {
-        src: ['assets/js/scripts.js', 'assets/js/components/**/*.js', 'assets/js/**/*.js'],
-        dest: 'assets/dist/js/'
+        src: [
+            `${srcFolder}/assets/js/scripts.js`,
+            `${srcFolder}/assets/js/components/*.js`,
+            `${srcFolder}/assets/js/functions/*.js`,
+        ],
+        dest: `${buildFolder}/js/`
     },
     img: {
-        src: 'assets/img/**/**/*',
-        dest: 'assets/img/'
+        src: `${srcFolder}/assets/img/**/**/*`,
+        dest: `${srcFolder}/assets/img/`,
     },
-};
+    vendors: {
+        src: `${srcFolder}/assets/vendors/**/**/*`,
+    },
+    fonts: {
+        src: [
+            `${srcFolder}/assets/fonts/**/**/*`
+        ],
+    }
+}
 
-function serve() {
+const serve = () => {
+    const domain = 'localhost/theme_domain'
     browserSync.init({
         proxy: domain,
-        notify: false
-    });
+        notify: false,
+        port: 4001
+    })
 }
 
-function cleanFolder() {
-    return del('assets/dist');
+const reload = () => {
+    browserSync.reload()
 }
 
-function reload(done) {
-    browserSync.reload();
-    done();
+const clean = () => {
+    return del(buildFolder)
 }
 
-function watch() {
+const scss = () => {
+    const sass = gulpSass(dartSass)
+
+    return gulp.src(paths.scss.src)
+        .pipe(plumber({
+            errorHandler: function (err) {
+                notify.onError({
+                    title: "SCSS Error",
+                    message: "<%= error.message %>"
+                })(err)
+            }
+        }))
+        .pipe(gulpif(isDevelopment, sourcemaps.init()))
+
+        // SCSS
+        .pipe(sass().on('error', sass.logError))
+
+        // Dev PostCSS
+        .pipe(gulpif(isDevelopment, postcss([
+            autoprefixer(),
+        ])))
+
+        // Build PostCSS
+        .pipe(gulpif(isProduction, postcss([
+            autoprefixer(),
+            cssnano({
+                autoprefixer: true,
+                cssDeclarationSorter: true,
+                calc: true,
+                colormin: true,
+                convertValues: true,
+                discardComments: {removeAll: true},
+                discardDuplicates: true,
+                discardEmpty: true,
+                discardOverridden: true,
+                discardUnused: true,
+                mergeIdents: true,
+                mergeLonghand: true,
+                mergeRules: true,
+                minifyFontValues: true,
+                minifyGradients: true,
+                minifyParams: true,
+                minifySelectors: true,
+                normalizeCharset: true,
+                normalizeDisplayValues: true,
+                normalizePositions: true,
+                normalizeRepeatStyle: true,
+                normalizeString: true,
+                normalizeTimingFunctions: true,
+                normalizeUnicode: true,
+                normalizeUrl: true,
+                normalizeWhitespace: true,
+                orderedValues: true,
+                reduceIdents: true,
+                reduceInitial: true,
+                reduceTransforms: true,
+                svgo: true,
+                uniqueSelectors: true,
+                zindex: false,
+            }),
+            combineMediaQueries()
+        ])))
+
+        .pipe(gulpif(isDevelopment, sourcemaps.write('./')))
+        .pipe(gulp.dest(paths.scss.dest))
+        .pipe(size())
+        .pipe(browserSync.stream())
+}
+
+const js = () => {
+    return gulp.src(paths.js.src)
+        .pipe(plumber({
+            errorHandler: function (err) {
+                notify.onError({
+                    title: "JS Error",
+                    message: "<%= error.message %>"
+                })(err)
+            }
+        }))
+
+        // Webpack Development
+        .pipe(gulpif(isDevelopment,
+            webpack({
+                devtool: "eval-source-map",
+                mode: 'development',
+                module: {
+                    rules: [
+                        {
+                            test: /\.(js)$/,
+                            exclude: /(node_modules)/,
+                            loader: "babel-loader",
+                        },
+                    ],
+                },
+                output: {
+                    filename: "scripts.min.js",
+                    sourceMapFilename: "scripts.js.map"
+                },
+            })
+        )).on('error', function handleError() {
+            this.emit('end'); // Recover from errors
+        })
+
+        // Webpack Production
+        .pipe(gulpif(isProduction(),
+            webpack({
+                devtool: false,
+                mode: 'production',
+                module: {
+                    rules: [
+                        {
+                            test: /\.(js)$/,
+                            exclude: /(node_modules)/,
+                            loader: "babel-loader",
+                        },
+                    ],
+                },
+                output: {
+                    filename: "scripts.min.js",
+                },
+            })
+        )).on('error', function handleError() {
+            this.emit('end'); // Recover from errors
+        })
+
+        .pipe(gulpif(isDevelopment, sourcemaps.init()))
+        .pipe(through.obj(function (file, enc, cb) {
+            const isSourceMap = /\.map$/.test(file.path);
+            if (!isSourceMap) this.push(file);
+            cb();
+        }))
+        .pipe(gulpif(isDevelopment, sourcemaps.write('./')))
+        .pipe(gulp.dest(paths.js.dest))
+        .pipe(size())
+        .pipe(browserSync.stream())
+}
+
+const img = () => {
+    return gulp.src(paths.img.src)
+        .pipe(plumber({
+            errorHandler: function (err) {
+                notify.onError({
+                    title: "IMG Error",
+                    message: "<%= error.message %>"
+                })(err)
+            }
+        }))
+
+        // Images Compression
+        .pipe(gulpif(isDevelopment(), newer(paths.img.dest)))  // Loop only new images
+        .pipe(imagemin([
+            // GIF
+            gifsicle({interlaced: true}),
+
+            // PNG
+            optipng({optimizationLevel: 5}),
+
+            // SVG
+            svgo(),
+
+            // JPG
+            mozjpeg({quality: 75, progressive: true}),
+            imageminJpegoptim({
+                progressive: true,
+                stripAll: true,
+                stripXmp: true,
+                stripIptc: true,
+                stripCom: true,
+                stripIcc: true,
+                stripExif: true,
+            })
+        ], {
+            optimizationLevel: 4,
+            progressive: true,
+        }))
+        .pipe(gulp.dest(paths.img.dest))
+
+        .pipe(browserSync.stream())
+}
+
+const watch = () => {
     // SCSS
-    gulp.watch(paths.scss.src, gulp.series(scss));
+    gulp.watch(paths.scss.src, gulp.series(scss))
 
     // JS
-    gulp.watch(paths.js.src, gulp.series(js));
+    gulp.watch(paths.js.src, gulp.series(js))
 
     // Images
-    gulp.watch(paths.img.src, gulp.series(reload));
+    gulp.watch(paths.img.src, gulp.series(img))
+
+    // Vendors folder
+    gulp.watch(paths.vendors.src, gulp.series(reload))
+
+    // Fonts
+    gulp.watch(paths.fonts.src, gulp.series(reload))
 }
 
-
-if (webpackModules) {
-    function js(done) {
-        return gulp.src(paths.js.src)
-            .pipe(plumber())
-            .pipe(webpack({
-                config: require('./webpack.config.js')
-            }))
-            .pipe(sourcemaps.init({loadMaps: true}))
-            .pipe(through.obj(function (file, enc, cb) {
-                const isSourceMap = /\.map$/.test(file.path);
-                if (!isSourceMap) this.push(file);
-                cb();
-            }))
-            .pipe(sourcemaps.write('.'))
-            .pipe(gulp.dest(paths.js.dest))
-            .pipe(browserSync.stream())
-        done();
-    }
-} else {
-    function js(done) {
-        return gulp.src(paths.js.src)
-            .pipe(plumber())
-            .pipe(sourcemaps.init())
-            .pipe(babel({presets: ['@babel/env']}))
-            .pipe(rename("scripts.min.js"))
-            .pipe(uglify())
-            .pipe(sourcemaps.write('.'))
-            .pipe(gulp.dest(paths.js.dest))
-            .pipe(browserSync.stream());
-        done();
-    }
-}
-
-function scss(done) {
-    return gulp.src(paths.scss.src)
-        .pipe(plumber())
-        .pipe(sourcemaps.init())
-        .pipe(sass().on('error', sass.logError))
-        .pipe(autoprefixer({
-            overrideBrowserslist: ["last 10 versions"],
-            cascade: false,
-            grid: true
-        }))
-        .pipe(cleanCSS())
-        .pipe(rename("styles.min.css"))
-        .pipe(sourcemaps.write('../css'))
-        .pipe(gulp.dest(paths.scss.dest))
-        .pipe(browserSync.stream());
-    done();
-}
-
-function img(done) {
-    return gulp.src(paths.img.src)
-        .pipe(imagemin([
-            imagemin.gifsicle({interlaced: true}),
-            imagemin.mozjpeg({progressive: true}),
-            imagemin.optipng({optimizationLevel: 5}),
-            imagemin.svgo({
-                plugins: [
-                    {removeViewBox: true},
-                    {cleanupIDs: false}
-                ]
-            })
-        ]))
-        .pipe(image({
-            svgo: false
-        }))
-        .pipe(gulp.dest(paths.img.dest));
-    done();
-}
-
-
-function pot() {
-    return gulp.src([
-        '*.php',
-        '**/*.php',
-        'theme/**/*.php',
-        'pages/**/*.php',
-        'template-parts/**/*.php',
-        'inc/**/*.php',
-    ])
+const pot = () => {
+    return gulp.src(paths.php.src)
         .pipe(wpPot({
-            domain: 'united_me',
-            package: 'United Me'
+            domain: 'theme_domain',
+            package: 'theme_domain'
         }))
-        .pipe(gulp.dest('lang/um.pot'));
+        .pipe(gulp.dest('lang/theme_domain.pot'));
 }
 
-exports.serve = serve;
-exports.reload = reload;
-exports.watch = watch;
-exports.js = js;
-exports.scss = scss;
-exports.img = img;
-exports.pot = pot;
-exports.default = gulp.series(cleanFolder, gulp.parallel(scss, js), gulp.parallel(watch, serve));
+export {serve, reload, watch, clean, scss, js, img, pot}
 
+const dev = gulp.series(setDevelopmentEnvironment, clean, gulp.parallel(scss, js, img, pot), gulp.parallel(watch, serve))
+const build = gulp.series(setProductionEnvironment, clean, gulp.parallel(scss, js, img, pot))
 
+export {dev, build}
+export {dev as default}
