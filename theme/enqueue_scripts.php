@@ -1,7 +1,7 @@
 <?php function theme_name_enqueue_scripts() {
 
 	// Register Scrips
-	wp_register_script('main', ASSETS_URL . '/dist/js/scripts.min.js', array('jquery'), null, true);
+	wp_register_script('main', ASSETS_URL . '/dist/js/main.js', array('jquery'), null, true);
 
 	// Include Libs & Plugins
 
@@ -9,16 +9,15 @@
 	wp_enqueue_script('main');
 
 	$scripts_object = array(
-		'ajaxurl'                 => admin_url('admin-ajax.php'),
-		'home_url'                => home_url('/'),
+		'ajaxurl'  => admin_url('admin-ajax.php'),
+		'home_url' => home_url('/'),
 
-		'cf_nonce'              => wp_create_nonce('cf_nonce'),
+		'cf_nonce' => wp_create_nonce('cf_nonce'),
 	);
 	wp_localize_script('main', 'PHP', $scripts_object);
 }
 
 add_action('wp_enqueue_scripts', 'theme_name_enqueue_scripts');
-
 
 
 if ( ! is_admin()) {

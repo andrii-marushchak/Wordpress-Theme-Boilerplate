@@ -18,7 +18,7 @@ import gulpSass from 'gulp-sass'
 import postcss from 'gulp-postcss'
 import autoprefixer from 'autoprefixer'
 import cssnano from 'cssnano'
-import combineMediaQueries from 'postcss-combine-media-query'
+import sortMediaQueries from 'postcss-sort-media-queries'
 
 // Images
 import newer from "gulp-newer"
@@ -26,7 +26,8 @@ import imagemin, {gifsicle, mozjpeg, optipng, svgo} from 'gulp-imagemin'
 import imageminJpegoptim from 'imagemin-jpegoptim';
 
 // JS & Webpack
-import webpack from "webpack-stream"
+import webpack from "webpack"
+import webpackStream from "webpack-stream"
 
 // WordPress
 import wpPot from 'gulp-wp-pot'
@@ -167,7 +168,9 @@ const scss = () => {
                 uniqueSelectors: true,
                 zindex: false,
             }),
-            combineMediaQueries()
+            sortMediaQueries({
+                sort: 'desktop-first' // default
+            })
         ])))
 
         .pipe(gulpif(isDevelopment, sourcemaps.write('./')))
@@ -189,7 +192,7 @@ const js = () => {
 
         // Webpack Development
         .pipe(gulpif(isDevelopment,
-            webpack({
+            webpackStream({
                 devtool: "eval-source-map",
                 mode: 'development',
                 module: {
@@ -197,13 +200,22 @@ const js = () => {
                         {
                             test: /\.(js)$/,
                             exclude: /(node_modules)/,
-                            loader: "babel-loader",
+                            use: ['babel-loader']
                         },
                     ],
                 },
+                plugins: [
+                    new webpack.AutomaticPrefetchPlugin(),
+                    new webpack.optimize.LimitChunkCountPlugin({
+                        maxChunks: 1
+                    })
+                ],
+                experiments: {
+                    topLevelAwait: true,
+                },
                 output: {
-                    filename: "scripts.min.js",
-                    sourceMapFilename: "scripts.js.map"
+                    filename: '[name].js',
+                    sourceMapFilename: "[name].js.map"
                 },
             })
         )).on('error', function handleError() {
@@ -212,7 +224,7 @@ const js = () => {
 
         // Webpack Production
         .pipe(gulpif(isProduction(),
-            webpack({
+            webpackStream({
                 devtool: false,
                 mode: 'production',
                 module: {
@@ -220,12 +232,22 @@ const js = () => {
                         {
                             test: /\.(js)$/,
                             exclude: /(node_modules)/,
-                            loader: "babel-loader",
+                            use: ['babel-loader']
                         },
                     ],
                 },
+                plugins: [
+                    new webpack.AutomaticPrefetchPlugin(),
+                    new webpack.optimize.LimitChunkCountPlugin({
+                        maxChunks: 1
+                    })
+                ],
+                experiments: {
+                    topLevelAwait: true,
+                },
                 output: {
-                    filename: "scripts.min.js",
+                    filename: '[name].js',
+                    sourceMapFilename: "[name].js.map"
                 },
             })
         )).on('error', function handleError() {
