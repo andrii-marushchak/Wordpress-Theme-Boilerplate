@@ -24,6 +24,7 @@ import sortMediaQueries from 'postcss-sort-media-queries'
 import newer from "gulp-newer"
 import imagemin, {gifsicle, mozjpeg, optipng, svgo} from 'gulp-imagemin'
 import imageminJpegoptim from 'imagemin-jpegoptim';
+import tinypng from 'gulp-tinypng-compress'
 
 // JS & Webpack
 import webpack from "webpack"
@@ -205,6 +206,10 @@ const js = () => {
                     ],
                 },
                 plugins: [
+                    new webpack.ProvidePlugin({
+                        $: 'jquery',
+                        jQuery: 'jquery',
+                    }),
                     new webpack.AutomaticPrefetchPlugin(),
                     new webpack.optimize.LimitChunkCountPlugin({
                         maxChunks: 1
@@ -237,6 +242,10 @@ const js = () => {
                     ],
                 },
                 plugins: [
+                    new webpack.ProvidePlugin({
+                        $: 'jquery',
+                        jQuery: 'jquery',
+                    }),
                     new webpack.AutomaticPrefetchPlugin(),
                     new webpack.optimize.LimitChunkCountPlugin({
                         maxChunks: 1
@@ -304,6 +313,14 @@ const img = () => {
             optimizationLevel: 4,
             progressive: true,
         }))
+
+        /*
+    .pipe(tinypng({
+        key: '', // https://tinify.cn/dashboard/api
+        log: true
+    }))
+    */
+
         .pipe(gulp.dest(paths.img.dest))
 
         .pipe(browserSync.stream())
