@@ -21,5 +21,9 @@
 // Utility CSS
 @import "other/utility";
 
+// Components
+@import "components/btn";
+@import "components/form";
+
 // Core Styles -- must be latest
 @import "core";

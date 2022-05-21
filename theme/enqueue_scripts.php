@@ -1,7 +1,10 @@
 <?php function theme_name_enqueue_scripts() {
 
+	// Deregister jquery
+	wp_deregister_script('jquery');
+
 	// Register Scrips
-	wp_register_script('main', ASSETS_URL . '/dist/js/main.js', array('jquery'), null, true);
+	wp_register_script('main', ASSETS_URL . '/dist/js/main.js', array(), null, true);
 
 	// Include Libs & Plugins
 

@@ -197,3 +197,82 @@ function theme_name_wp_kses($DT_string) {
 function theme_name_get_phone($value) {
 	return str_replace(array(' ', ' - ', '( ', ' )'), '', $value);
 }
+
+// Display Picture
+function theme_name_picture(string $path, bool $echo = true, bool $loading_lazy = true, string $img_css = '', string $alt = '', string $picture_css = '') {
+	$file_path              = THEME_PATH . $path;
+	$real_extension         = pathinfo($file_path)['extension'];
+	$path_without_extension = preg_replace('/\\.[^.\\s]{3,4}$/', '', $path);
+
+	$loading_attr = '';
+	if ($loading_lazy) {
+		$loading_attr = 'loading="lazy"';
+	}
+	if ($img_css) {
+		$img_css = 'class="' . $img_css . '"';
+	}
+	if ($picture_css) {
+		$picture_css = 'class="' . $picture_css . '"';
+	}
+
+	if ($alt) {
+		$alt = 'alt="' . $alt . '"';
+	} else {
+		$alt = 'alt=""';
+	}
+
+	$images_arr = [
+		[
+			'extension' => $real_extension,
+			'mime_type' => mime_content_type(THEME_PATH . $path_without_extension . '.' . $real_extension),
+			'size'      => filesize(THEME_PATH . $path_without_extension . '.' . $real_extension),
+			'url'       => THEME_URL . $path_without_extension . '.' . $real_extension,
+			'html'      => '<img src="' . THEME_URL . $path_without_extension . '.' . $real_extension . '"   ' . $loading_attr . '  ' . $img_css . '    ' . $alt . '     >'
+		],
+	];
+
+	// Avif
+	$avif = THEME_PATH . $path_without_extension . '.avif';
+	if (file_exists($avif)) {
+		$images_arr[] = [
+			'extension' => 'avif',
+			'mime_type' => mime_content_type(THEME_PATH . $path_without_extension . '.avif'),
+			'size'      => filesize(THEME_PATH . $path_without_extension . '.avif'),
+			'url'       => THEME_URL . $path_without_extension . '.avif',
+			'html'      => '<source srcset="' . THEME_URL . $path_without_extension . '.avif' . '" type="' . mime_content_type(THEME_PATH . $path_without_extension . '.avif') . '">'
+		];
+	}
+
+	// Webp
+	$webp = THEME_PATH . $path_without_extension . '.webp';
+	if (file_exists($webp)) {
+		$images_arr[] = [
+			'extension' => 'webp',
+			'mime_type' => mime_content_type(THEME_PATH . $path_without_extension . '.webp'),
+			'size'      => filesize(THEME_PATH . $path_without_extension . '.webp'),
+			'url'       => THEME_URL . $path_without_extension . '.webp',
+			'html'      => '<source srcset="' . THEME_URL . $path_without_extension . '.webp' . '" type="' . mime_content_type(THEME_PATH . $path_without_extension . '.webp') . '">'
+		];
+	}
+
+	// Sort by size
+	usort($images_arr, function ($a, $b) {
+		return strcmp($a['size'], $b['size']);
+	});
+
+	ob_start(); ?>
+
+    <picture <?php echo $picture_css; ?> >
+		<?php foreach ($images_arr as $img) {
+			echo $img['html'];
+		} ?>
+    </picture>
+
+	<?php $picture = ob_get_clean();
+
+	if ($echo) {
+		echo $picture;
+	} else {
+		return $picture;
+	}
+}

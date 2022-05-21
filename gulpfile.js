@@ -25,6 +25,9 @@ import newer from "gulp-newer"
 import imagemin, {gifsicle, mozjpeg, optipng, svgo} from 'gulp-imagemin'
 import imageminJpegoptim from 'imagemin-jpegoptim';
 import tinypng from 'gulp-tinypng-compress'
+import webp from 'gulp-webp'
+import avif from 'gulp-avif'
+
 
 // JS & Webpack
 import webpack from "webpack"
@@ -79,8 +82,9 @@ const paths = {
         dest: `${buildFolder}/js/`
     },
     img: {
-        src: `${srcFolder}/assets/img/**/**/*`,
-        dest: `${srcFolder}/assets/img/`,
+        srcForOptimization: `${srcFolder}/assets/img/**/**/*.{jpg,png,jpeg}`,
+        srcForConversion: `${srcFolder}/assets/img/**/**/*.{jpg,png,jpeg}`,
+        src_dest: `${srcFolder}/assets/img/`,
     },
     vendors: {
         src: `${srcFolder}/assets/vendors/**/**/*`,
@@ -275,8 +279,8 @@ const js = () => {
         .pipe(browserSync.stream())
 }
 
-const img = () => {
-    return gulp.src(paths.img.src)
+const imgOptimization = () => {
+    return gulp.src(paths.img.srcForOptimization)
         .pipe(plumber({
             errorHandler: function (err) {
                 notify.onError({
@@ -287,7 +291,8 @@ const img = () => {
         }))
 
         // Images Compression
-        .pipe(gulpif(isDevelopment(), newer(paths.img.dest)))  // Loop only new images
+        .pipe(newer(paths.img.src_dest))  // Loop only new images
+
         .pipe(imagemin([
             // GIF
             gifsicle({interlaced: true}),
@@ -296,10 +301,10 @@ const img = () => {
             optipng({optimizationLevel: 5}),
 
             // SVG
-            svgo(),
+            svgo({}),
 
             // JPG
-            mozjpeg({quality: 75, progressive: true}),
+            mozjpeg({quality: 70, progressive: true}),
             imageminJpegoptim({
                 progressive: true,
                 stripAll: true,
@@ -310,20 +315,60 @@ const img = () => {
                 stripExif: true,
             })
         ], {
-            optimizationLevel: 4,
+            optimizationLevel: 5,
             progressive: true,
         }))
 
         /*
-    .pipe(tinypng({
-        key: '', // https://tinify.cn/dashboard/api
-        log: true
-    }))
-    */
+        .pipe(tinypng({
+            key: '', // https://tinify.cn/dashboard/api
+            log: true
+        }))
+        */
 
-        .pipe(gulp.dest(paths.img.dest))
+        .pipe(gulp.dest(paths.img.src_dest))
+}
 
-        .pipe(browserSync.stream())
+const imgWebPConversion = () => {
+// WebP
+    return gulp.src(paths.img.srcForConversion)
+        .pipe(plumber({
+            errorHandler: function (err) {
+                notify.onError({
+                    title: "WebP Conversion Error",
+                    message: "<%= error.message %>"
+                })(err)
+            }
+        }))
+        .pipe(gulpif(isDevelopment(), newer(paths.img.srcForConversion)))
+        .pipe(webp({
+                quality: 70,
+                alphaQuality: 85,
+                metadata: 'none',
+            }
+        ))
+        .pipe(gulp.dest(paths.img.src_dest))
+}
+
+const imgAvifConversion = () => {
+// Avif
+    return gulp.src(paths.img.srcForConversion)
+        .pipe(plumber({
+            errorHandler: function (err) {
+                notify.onError({
+                    title: "Avif Conversion Error",
+                    message: "<%= error.message %>"
+                })(err)
+            }
+        }))
+        .pipe(gulpif(isDevelopment(), newer(paths.img.srcForConversion)))
+
+        .pipe(avif({
+            quality: 70,
+            speed: 8,
+        }))
+
+        .pipe(gulp.dest(paths.img.src_dest))
 }
 
 const watch = () => {
@@ -334,7 +379,7 @@ const watch = () => {
     gulp.watch(paths.js.src, gulp.series(js))
 
     // Images
-    gulp.watch(paths.img.src, gulp.series(img))
+    gulp.watch(paths.img.srcForOptimization, gulp.series(imgOptimization, imgWebPConversion, imgAvifConversion))
 
     // Vendors folder
     gulp.watch(paths.vendors.src, gulp.series(reload))
@@ -352,10 +397,12 @@ const pot = () => {
         .pipe(gulp.dest('lang/theme_domain.pot'));
 }
 
-export {serve, reload, watch, clean, scss, js, img, pot}
+export {serve, reload, watch, clean, scss, js, imgOptimization, imgWebPConversion, imgAvifConversion, img, pot}
 
+const img = gulp.series(imgOptimization, imgWebPConversion, imgAvifConversion);
 const dev = gulp.series(setDevelopmentEnvironment, clean, gulp.parallel(scss, js, img, pot), gulp.parallel(watch, serve))
 const build = gulp.series(setProductionEnvironment, clean, gulp.parallel(scss, js, img, pot))
+
 
 export {dev, build}
 export {dev as default}

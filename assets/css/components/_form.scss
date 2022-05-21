@@ -1,0 +1,10 @@
+form {
+  input {
+    &[type="checkbox"] {
+      appearance: auto;
+    }
+    &[type="radio"] {
+      appearance: auto;
+    }
+  }
+}

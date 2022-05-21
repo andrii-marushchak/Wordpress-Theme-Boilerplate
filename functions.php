@@ -1,10 +1,11 @@
 <?php
 
-// Constants
 define('THEME_PATH', get_template_directory());
 define('THEME_URL', get_template_directory_uri());
 define('ASSETS_URL', get_template_directory_uri() . '/assets');
 define('ASSETS_PATH', get_template_directory() . '/assets');
+define('REST_API', false);
+define('GUTENBERG', false);
 
 // ACF Config
 if (class_exists('acf')) {
@@ -19,7 +20,7 @@ get_template_part('theme/enqueue_styles');
 get_template_part('theme/general');
 
 // Validation
-get_template_part('theme/additional/validation');
+get_template_part('theme/additional/cleanup-validation');
 
 // Helpers Functions
 get_template_part('theme/functions/helpers');
@@ -27,7 +28,5 @@ get_template_part('theme/functions/helpers');
 // Navigation
 get_template_part('theme/functions/nav');
 
-
-// Disable Gutenberg
-add_filter('use_block_editor_for_post', '__return_false', 10);
-add_filter('use_block_editor_for_post', '__return_false', 10);
+// Shortcodes
+get_template_part('theme/functions/shortcodes');
