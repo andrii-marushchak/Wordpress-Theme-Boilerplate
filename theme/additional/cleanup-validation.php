@@ -80,6 +80,10 @@ remove_action('wp_head', 'wp_oembed_add_host_js');
 remove_filter('oembed_dataparse', 'wp_filter_oembed_result', 10);
 remove_action( 'wp_enqueue_scripts', 'wp_enqueue_global_styles' );
 remove_action( 'wp_footer', 'wp_enqueue_global_styles', 1 );
+remove_action('wp_head', 'print_emoji_detection_script', 7);
+remove_action('wp_print_styles', 'print_emoji_styles');
+remove_action('wp_head', 'wp_resource_hints', 2);
+remove_action('wp_head', 'adjacent_posts_rel_link_wp_head');
 
 
 // Stope Heartbeat completely to save resources
