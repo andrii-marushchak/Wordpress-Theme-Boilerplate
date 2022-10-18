@@ -1,4 +1,29 @@
 .template-wrapper {
   overflow-x: hidden;
   max-width: var(--maxW);
+  background-color: var(--color-white);
+  padding-top: 100px;
+  @media (max-width: 1440px) {
+    padding-top: 80px;
+  }
+  @media (max-width: 991px) {
+    padding-top: 72px;
+  }
+}
+
+
+.page-template-builder{
+  overflow-x: hidden;
+  max-width: var(--maxW);
+  display: block;
+}
+
+
+.acf-section {
+  &[data-pt='0'] {
+    padding-top: 0;
+  }
+  &[data-pb='0'] {
+    padding-bottom: 0;
+  }
 }

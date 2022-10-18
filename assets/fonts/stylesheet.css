@@ -1,0 +1,168 @@
+@font-face {
+    font-family: 'Arboria';
+    src: url('Arboria-BlackItalic.eot');
+    src: local('☞Arboria-BlackItalic'), local('Arboria-BlackItalic'),
+        url('Arboria-BlackItalic.eot?#iefix') format('embedded-opentype'),
+        url('Arboria-BlackItalic.woff2') format('woff2'),
+        url('Arboria-BlackItalic.woff') format('woff'),
+        url('Arboria-BlackItalic.ttf') format('truetype'),
+        url('Arboria-BlackItalic.svg#Arboria-BlackItalic') format('svg');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Arboria-BookItalic';
+    src: url('Arboria-BookItalic.eot');
+    src: local('☞Arboria-BookItalic'), local('Arboria-BookItalic'),
+        url('Arboria-BookItalic.eot?#iefix') format('embedded-opentype'),
+        url('Arboria-BookItalic.woff2') format('woff2'),
+        url('Arboria-BookItalic.woff') format('woff'),
+        url('Arboria-BookItalic.ttf') format('truetype'),
+        url('Arboria-BookItalic.svg#Arboria-BookItalic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Arboria';
+    src: url('Arboria-Light.eot');
+    src: local('☞Arboria-Light'), local('Arboria-Light'),
+        url('Arboria-Light.eot?#iefix') format('embedded-opentype'),
+        url('Arboria-Light.woff2') format('woff2'),
+        url('Arboria-Light.woff') format('woff'),
+        url('Arboria-Light.ttf') format('truetype'),
+        url('Arboria-Light.svg#Arboria-Light') format('svg');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Arboria';
+    src: url('Arboria-Medium.eot');
+    src: local('☞Arboria-Medium'), local('Arboria-Medium'),
+        url('Arboria-Medium.eot?#iefix') format('embedded-opentype'),
+        url('Arboria-Medium.woff2') format('woff2'),
+        url('Arboria-Medium.woff') format('woff'),
+        url('Arboria-Medium.ttf') format('truetype'),
+        url('Arboria-Medium.svg#Arboria-Medium') format('svg');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Arboria';
+    src: url('Arboria-Bold.eot');
+    src: local('☞Arboria-Bold'), local('Arboria-Bold'),
+        url('Arboria-Bold.eot?#iefix') format('embedded-opentype'),
+        url('Arboria-Bold.woff2') format('woff2'),
+        url('Arboria-Bold.woff') format('woff'),
+        url('Arboria-Bold.ttf') format('truetype'),
+        url('Arboria-Bold.svg#Arboria-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Arboria';
+    src: url('Arboria-BoldItalic.eot');
+    src: local('☞Arboria-BoldItalic'), local('Arboria-BoldItalic'),
+        url('Arboria-BoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('Arboria-BoldItalic.woff2') format('woff2'),
+        url('Arboria-BoldItalic.woff') format('woff'),
+        url('Arboria-BoldItalic.ttf') format('truetype'),
+        url('Arboria-BoldItalic.svg#Arboria-BoldItalic') format('svg');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Arboria';
+    src: url('Arboria-Thin.eot');
+    src: local('☞Arboria-Thin'), local('Arboria-Thin'),
+        url('Arboria-Thin.eot?#iefix') format('embedded-opentype'),
+        url('Arboria-Thin.woff2') format('woff2'),
+        url('Arboria-Thin.woff') format('woff'),
+        url('Arboria-Thin.ttf') format('truetype'),
+        url('Arboria-Thin.svg#Arboria-Thin') format('svg');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Arboria';
+    src: url('Arboria-ThinItalic.eot');
+    src: local('☞Arboria-ThinItalic'), local('Arboria-ThinItalic'),
+        url('Arboria-ThinItalic.eot?#iefix') format('embedded-opentype'),
+        url('Arboria-ThinItalic.woff2') format('woff2'),
+        url('Arboria-ThinItalic.woff') format('woff'),
+        url('Arboria-ThinItalic.ttf') format('truetype'),
+        url('Arboria-ThinItalic.svg#Arboria-ThinItalic') format('svg');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Arboria';
+    src: url('Arboria-LightItalic.eot');
+    src: local('☞Arboria-LightItalic'), local('Arboria-LightItalic'),
+        url('Arboria-LightItalic.eot?#iefix') format('embedded-opentype'),
+        url('Arboria-LightItalic.woff2') format('woff2'),
+        url('Arboria-LightItalic.woff') format('woff'),
+        url('Arboria-LightItalic.ttf') format('truetype'),
+        url('Arboria-LightItalic.svg#Arboria-LightItalic') format('svg');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Arboria';
+    src: url('Arboria-MediumItalic.eot');
+    src: local('☞Arboria-MediumItalic'), local('Arboria-MediumItalic'),
+        url('Arboria-MediumItalic.eot?#iefix') format('embedded-opentype'),
+        url('Arboria-MediumItalic.woff2') format('woff2'),
+        url('Arboria-MediumItalic.woff') format('woff'),
+        url('Arboria-MediumItalic.ttf') format('truetype'),
+        url('Arboria-MediumItalic.svg#Arboria-MediumItalic') format('svg');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Arboria';
+    src: url('Arboria-Black.eot');
+    src: local('☞Arboria-Black'), local('Arboria-Black'),
+        url('Arboria-Black.eot?#iefix') format('embedded-opentype'),
+        url('Arboria-Black.woff2') format('woff2'),
+        url('Arboria-Black.woff') format('woff'),
+        url('Arboria-Black.ttf') format('truetype'),
+        url('Arboria-Black.svg#Arboria-Black') format('svg');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Arboria-Book';
+    src: url('Arboria-Book.eot');
+    src: local('☞Arboria-Book'), local('Arboria-Book'),
+        url('Arboria-Book.eot?#iefix') format('embedded-opentype'),
+        url('Arboria-Book.woff2') format('woff2'),
+        url('Arboria-Book.woff') format('woff'),
+        url('Arboria-Book.ttf') format('truetype'),
+        url('Arboria-Book.svg#Arboria-Book') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+

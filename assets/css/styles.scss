@@ -23,7 +23,47 @@
 
 // Components
 @import "components/btn";
+@import "components/nav";
 @import "components/form";
+@import "components/footer";
+@import "components/sweetalert";
+@import "components/gutenberg";
+
+// Sections
+@import "sections/section-split-images-header";
+@import "sections/section-benefits";
+@import "sections/section-video-cta";
+@import "sections/section-achievements";
+@import "sections/section-startups-corporates-investors-grid";
+@import "sections/section-cases-slider";
+@import "sections/section-news-eventes-grid";
+@import "sections/section-marquee";
+@import "sections/section-newsletter";
+@import "sections/section-page-header";
+@import "sections/section-about";
+@import "sections/section-goals";
+@import "sections/section-team";
+@import "sections/section-mentors";
+@import "sections/section-community";
+@import "sections/section-contact";
+@import "sections/section-faq";
+@import "sections/section-content";
+@import "sections/section-testimonials";
+@import "sections/section-person-cta";
+@import "sections/section-course-info";
+@import "sections/section-image";
+@import "sections/section-startups";
+@import "sections/section-partners";
+@import "sections/section-gutenberg";
+
+// Pages
+@import "pages/page-404";
+@import "pages/page-team-single";
+@import "pages/page-blog";
+@import "pages/page-events";
+@import "pages/page-search";
+@import "pages/page-single-news";
+@import "pages/page-single-event";
 
 // Core Styles -- must be latest
 @import "core";

@@ -1,0 +1,98 @@
+.section-community {
+  padding-top: 110px;
+  padding-bottom: 110px;
+  
+  .section-title {
+    margin-bottom: 20px;
+  }
+  
+  .section-subtitle {
+    max-width: 660px;
+  }
+  
+  .community-stats {
+    margin-top: 35px;
+    display: flex;
+    justify-content: space-between;
+    margin-left: calc(var(--gap-size) * -1);
+    margin-right: calc(var(--gap-size) * -1);
+    
+    &__col {
+      max-width: 290px;
+      margin-left: var(--gap-size);
+      margin-right: var(--gap-size);
+      
+      .number {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+      }
+      
+      .btn-wrap {
+        margin-bottom: 8px;
+        margin-top: 10px;
+        
+        .caption {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+  
+  
+  @media (max-width: 1366px) {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+  
+  @media (max-width: 1199px) {
+    .community-stats {
+      margin-left: calc(var(--gap-size) / 2 * -1);
+      margin-right: calc(var(--gap-size) / 2 * -1);
+      &__col {
+        margin-left: calc(var(--gap-size) / 2);
+        margin-right: calc(var(--gap-size) / 2);
+      }
+    }
+  }
+  
+  @media (max-width: 991px) {
+    padding-top: 70px;
+    padding-bottom: 70px;
+    .community-stats {
+      margin-left: calc(var(--gap-size) * -1);
+      margin-right: calc(var(--gap-size) * -1);
+      flex-wrap: wrap;
+      &__col {
+        width: 50%;
+        margin-left: calc(var(--gap-size));
+        margin-right: calc(var(--gap-size));
+        margin-bottom: calc(var(--gap-size) * 1.5);
+      }
+    }
+  }
+  
+  @media (max-width: 767px) {
+    padding-top: 60px;
+    padding-bottom: 60px;
+    .community-stats {
+      max-width: 680px;
+    }
+  }
+  @media (max-width: 680px) {
+    .community-stats {
+      max-width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+      &__col {
+        width: 100%;
+        max-width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        &:last-child{
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}

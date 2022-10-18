@@ -1,0 +1,44 @@
+.section-course-info {
+  background-color: var(--color-green);
+  padding: 20px 0;
+  
+  .grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    .grid-item {
+      flex: 1;
+      min-width: calc(100% / 4);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--color-white);
+      margin: 15px 0;
+      &__title {
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 26px;
+      }
+      &__subtitle {
+        font-size: 16px;
+        line-height: 24px;
+      }
+    }
+  }
+  
+  @media (max-width: 991px) {
+    .grid {
+      .grid-item {
+        min-width: 50%;
+      }
+    }
+  }
+  @media (max-width: 565px) {
+    .grid {
+      .grid-item {
+        min-width: 100%;
+      }
+    }
+  }
+}

@@ -1,11 +1,25 @@
 :root {
-  
   // Maximum Width including scrollbar
   --maxW: calc(100vw - var(--scroll-width));
   
+  --gap-size: 24px;
+  
+  --color-green: #098500;
+  --color-green-2: #82BC00;
+  
+  --color-green-hover: #087700;
+  
+  --color-blue: #27348B;
+  --color-blue-2: #3874B9;
+  
+  --color-orange: #E35E00;
+  --color-orange-2: #F18800;
+  
+  --color-grey: #F7F7F7;
+  --color-white: #fff;
+  --color-black: #000;
+  --color-dark: var(--color-black);
+  
+  --font-primary: 'Arboria', sans-serif;
+  
 }
-
-html {
-  accent-color: red;
-}
-

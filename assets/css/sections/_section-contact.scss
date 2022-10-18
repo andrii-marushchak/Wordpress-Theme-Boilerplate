@@ -1,0 +1,125 @@
+.section-contact {
+  padding-top: 100px;
+  padding-bottom: 100px;
+  @media (max-width: 1366px) {
+    padding-top: 90px;
+    padding-bottom: 90px;
+  }
+  @media (max-width: 991px) {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+  @media (max-width: 767px) {
+    padding-top: 60px;
+  }
+ 
+  
+  // Section Title
+  .section-title {
+    margin-bottom: 35px;
+  }
+  
+  .section-row {
+    display: flex;
+    justify-content: space-between;
+    
+    .col-left {
+      width: 50%;
+    }
+    
+    .col-right {
+      width: 40%;
+    }
+  }
+  
+  .contact-info {
+    .contact-block {
+      margin-bottom: 40px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    
+    .address {
+      margin-bottom: 15px;
+      font-size: 20px;
+      font-style: normal;
+      @media (max-width: 991px) {
+        font-size: 18px;
+      }
+      @media (max-width: 565px) {
+        font-size: 16px;
+      }
+    }
+    
+    
+    .phone{
+      font-size: 20px;
+      font-style: normal;
+      @include transition;
+      text-decoration: underline;
+      text-decoration-color: transparent;
+      text-underline-offset: 5px;
+      text-decoration-thickness: 1px;
+      
+      &:hover{
+        text-decoration-color: var(--color-green);
+        color: var(--color-green);
+      }
+      
+      @media (max-width: 991px) {
+        font-size: 18px;
+      }
+      @media (max-width: 565px) {
+        font-size: 16px;
+      }
+    }
+    
+    
+    &__title {
+      color: var(--color-green);
+      margin-bottom: 15px;
+    }
+    
+    &__desc {
+      width: 100%;
+      max-width: 450px;
+    }
+    
+    .btn {
+      margin-top: 30px;
+    }
+  }
+  
+  
+  @media (max-width: 1199px) {
+    .section-row {
+      .col-right {
+        width: 45%;
+      }
+    }
+  }
+  @media (max-width: 991px) {
+    .contact-info {
+      margin-top: 40px;
+    }
+    .section-row {
+      flex-wrap: wrap;
+      .col-left {
+        width: 100%;
+      }
+      .col-right {
+        width: 100%;
+      }
+    }
+  }
+  @media (max-width: 480px) {
+  .contact-info{
+    .btn{
+      .caption{
+        font-size: 15px;
+      }
+    }
+  }
+  }
+}

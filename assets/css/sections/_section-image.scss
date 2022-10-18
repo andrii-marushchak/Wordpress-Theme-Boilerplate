@@ -1,0 +1,37 @@
+.section-image{
+  padding-top: 120px;
+  padding-bottom: 120px;
+  @media (max-width: 1366px) {
+    padding-top: 90px;
+    padding-bottom: 90px;
+  }
+  @media (max-width: 991px) {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+  @media (max-width: 767px) {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+  @media (max-width: 565px) {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  
+  
+  .section-title{
+    margin-bottom: 30px;
+  }
+  
+  .img-wrap{
+    display: block;
+    width: 100%;
+    img{
+      display: block;
+      object-fit: contain;
+    }
+  }
+  
+  
+  
+}

@@ -1,39 +1,7 @@
 <?php
 
-if ( ! REST_API) {
-	remove_action('rest_api_init', 'wp_oembed_register_route');
-}
+remove_action('rest_api_init', 'wp_oembed_register_route');
 
-if ( ! GUTENBERG) {
-	// Disable Gutenberg
-	add_filter('use_block_editor_for_post', '__return_false', 10);
-	add_filter('use_block_editor_for_post', '__return_false', 10);
-
-	// Deregister Gutenberg assets
-	add_action('wp_print_styles', 'deregister_gutenberg_assets', 999);
-	function deregister_gutenberg_assets() {
-		wp_dequeue_style('wp-block-library');
-		wp_dequeue_style('wp-block-library-theme');
-		wp_dequeue_style('wc-block-style');
-		wp_dequeue_style('wp-editor-font');
-		wp_dequeue_style('wp-editor');
-		wp_dequeue_style('wstorefront-gutenberg-blocks');
-		wp_deregister_script('wp-util');
-		wp_deregister_script('underscore');
-	}
-
-	// Deregister Gutenberg font for frontend
-	if ( ! is_admin()) {
-		add_filter('gettext_with_context', 'gg_deregister_gutenberg_fonts', 10, 4);
-		function gg_deregister_gutenberg_fonts($translation, $text, $context, $domain) {
-			if ($context != 'Google Font Name and Variants' || $text != 'Noto Serif:400,400i,700,700i') {
-				return $translation;
-			}
-
-			return 'off';
-		}
-	}
-}
 
 // Clean Tags Attributes
 add_action('template_redirect', function () {
@@ -78,8 +46,8 @@ remove_action('wp_head', 'wp_shortlink_wp_head');
 remove_action('wp_head', 'wp_oembed_add_discovery_links', 10);
 remove_action('wp_head', 'wp_oembed_add_host_js');
 remove_filter('oembed_dataparse', 'wp_filter_oembed_result', 10);
-remove_action( 'wp_enqueue_scripts', 'wp_enqueue_global_styles' );
-remove_action( 'wp_footer', 'wp_enqueue_global_styles', 1 );
+remove_action('wp_enqueue_scripts', 'wp_enqueue_global_styles');
+remove_action('wp_footer', 'wp_enqueue_global_styles', 1);
 remove_action('wp_head', 'print_emoji_detection_script', 7);
 remove_action('wp_print_styles', 'print_emoji_styles');
 remove_action('wp_head', 'wp_resource_hints', 2);

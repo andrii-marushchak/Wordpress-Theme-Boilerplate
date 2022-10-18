@@ -17,4 +17,6 @@
 <body <?php body_class(); ?>>
 
 <div class="template-wrapper">
-	<?php get_template_part('parts/nav-desktop') ?>
+
+    <!-- Navigation -->
+<?php get_template_part('parts/navigation') ?>
