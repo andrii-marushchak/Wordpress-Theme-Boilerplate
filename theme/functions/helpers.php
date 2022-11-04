@@ -1,6 +1,6 @@
 <?php
 
-function startlife_get_svg(string $path) {
+function theme_name_get_svg(string $path) {
 	$result = false;
 	if ($path) {
 		try {
@@ -42,20 +42,20 @@ function startlife_get_svg(string $path) {
 	return $result;
 }
 
-function startlife_the_svg($path) {
-	echo startlife_get_svg($path);
+function theme_name_the_svg($path) {
+	echo theme_name_get_svg($path);
 }
 
-function startlife_strip_value($str) {
+function theme_name_strip_value($str) {
 	$str = sanitize_text_field($str);
-	$str = startlife_wp_kses($str);
+	$str = theme_name_wp_kses($str);
 	$str = trim($str);
 
 	return $str;
 }
 
 // ACF get_field() wrapper
-function startlife_get_field($param, $id = null) {
+function theme_name_get_field($param, $id = null) {
 
 	if ($id == null) {
 		$id = get_the_ID();
@@ -67,7 +67,7 @@ function startlife_get_field($param, $id = null) {
 }
 
 // ACF the_field() wrapper
-function startlife_the_field($param, $id = null) {
+function theme_name_the_field($param, $id = null) {
 
 	if ($id == null) {
 		$id = get_the_ID();
@@ -79,21 +79,21 @@ function startlife_the_field($param, $id = null) {
 }
 
 // ACF get_option() wrapper
-function startlife_get_option($param) {
+function theme_name_get_option($param) {
 	if (function_exists('get_field')) {
 		return get_field($param, 'option');
 	}
 }
 
 // ACF the_option() wrapper
-function startlife_the_option($param) {
+function theme_name_the_option($param) {
 	if (function_exists('the_field')) {
 		the_field($param, 'option');
 	}
 }
 
 // WP wp_kses() wrapper
-function startlife_wp_kses($DT_string) {
+function theme_name_wp_kses($DT_string) {
 	$allowed_tags = array(
 		'img'      => array(
 			'src'    => array(),
@@ -194,12 +194,12 @@ function startlife_wp_kses($DT_string) {
 }
 
 // Get stripped phone number for href=tel:
-function startlife_get_phone($value) {
+function theme_name_get_phone($value) {
 	return str_replace(array(' ', ' - ', '( ', ' )'), '', $value);
 }
 
 // Display Picture
-function startlife_picture(string $path, bool $echo = true, bool $loading_lazy = true, string $img_css = '', string $alt = '', string $picture_css = '') {
+function theme_name_picture(string $path, bool $echo = true, bool $loading_lazy = true, string $img_css = '', string $alt = '', string $picture_css = '') {
 	$file_path              = THEME_PATH . $path;
 	$real_extension         = pathinfo($file_path)['extension'];
 	$path_without_extension = preg_replace('/\\.[^.\\s]{3,4}$/', '', $path);
@@ -275,25 +275,4 @@ function startlife_picture(string $path, bool $echo = true, bool $loading_lazy =
 	} else {
 		return $picture;
 	}
-}
-
-// Post Estimated Reading Time
-function startlife_estimated_reading_time($post) {
-	// get the content
-	$the_content = $post->post_content;
-	// count the number of words
-	$words = str_word_count(strip_tags($the_content));
-	// rounding off and deviding per 200 words per minute
-	$minute = floor($words / 200);
-	// rounding off to get the seconds
-	$second = floor($words % 200 / (200 / 60));
-	// calculate the amount of time needed to read
-	//$estimate = $minute . ' minute' . ( $minute == 1 ? '' : 's' ) . ', ' . $second . ' second' . ( $second == 1 ? '' : 's' );
-
-	$estimate = $minute + 1 . ' min';
-	// create output
-	$output = $estimate;
-
-	// return the estimate
-	return $output;
 }

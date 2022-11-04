@@ -1,7 +1,7 @@
 <?php
 
-add_shortcode('year', 'startlife_shortcode_year');
+add_shortcode('year', 'theme_name_shortcode_year');
 
-function startlife_shortcode_year() {
+function theme_name_shortcode_year() {
 	return date('Y');
 }
