@@ -1,16 +1,13 @@
 <?php function theme_name_enqueue_styles() {
 
 	// Register Styles
-	wp_register_style('main', ASSETS_URL . '/dist/css/styles.css', array(), null);
+	wp_register_style('theme-global', ASSETS_URL . '/dist/css/theme-global.css', array(), null);
 
 	// Main CSS
-	wp_enqueue_style('main');
+	wp_enqueue_style('theme-global');
 }
 
 add_action('wp_enqueue_scripts', 'theme_name_enqueue_styles');
-
-
-
 
 
 // Admin Styles

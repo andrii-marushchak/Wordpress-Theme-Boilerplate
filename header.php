@@ -16,5 +16,7 @@
 
 <body <?php body_class(); ?>>
 
+<?php wp_body_open(); ?>
+
 <div class="template-wrapper">
-	<?php get_template_part('parts/nav-desktop') ?>
+<?php get_template_part('parts/nav-desktop') ?>

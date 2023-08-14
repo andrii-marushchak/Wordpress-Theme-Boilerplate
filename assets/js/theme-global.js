@@ -1,4 +1,5 @@
-import $ from 'jquery'
+window.$ = window.jQuery = jQuery // make jQuery from WordPress Global
+"use strict";
 
 jQuery(document).ready(function ($) {
     "use strict"
