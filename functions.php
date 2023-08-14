@@ -24,4 +24,4 @@ get_template_part('settings/additional/cleanup-validation');
 get_template_part('settings/functions/nav');
 
 // Gutenberg
-get_template_part('settings/gutenberg/gutenberg-config.php');
+get_template_part('gutenberg/gutenberg-config');
