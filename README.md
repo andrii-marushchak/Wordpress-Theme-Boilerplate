@@ -1,44 +1,17 @@
-### Run Server
-
-Set **webpackModules** if you want to use ES6 imports
-```js
-const webpackModules = true;
-```
+### Run Dev Server
 
 ```bash
-npm i
-gulp
-```
-
-
-### Run Watcher
-
-```bash
-gulp
+npm run start
 ```
 
 ### Generate .pot file
 
 ```bash
-gulp pot
+npm run translate
 ```
 
-### Compile .SCSS
+### Butild Project
 
 ```bash
-gulp scss
+npm run build
 ```
-
-### Compile .JS
-
-```bash
-gulp js
-```
-
-### Compress images
-
-```bash
-gulp img
-```
-
-
