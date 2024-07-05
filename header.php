@@ -1,7 +1,7 @@
 <!doctype html>
 <html <?php language_attributes(); ?> class="no-css">
 <head>
-    <meta charset="<?php bloginfo('charset'); ?>">
+    <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -19,4 +19,5 @@
 <?php wp_body_open(); ?>
 
 <div class="template-wrapper">
-<?php get_template_part('parts/nav-desktop') ?>
+
+<?php get_template_part( 'parts/nav-desktop' ) ?>

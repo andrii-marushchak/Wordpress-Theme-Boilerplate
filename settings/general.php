@@ -34,3 +34,12 @@ add_action('get_header', 'theme_name_remove_admin_login_header');
 
 
 
+// Add custom CSS class to the body tag
+function theme_name_add_custom_body_classes($classes) {
+	// Add your custom class here
+	$classes[] = 'os-' . getOS();
+
+	return $classes;
+}
+
+add_filter('body_class', 'theme_name_add_custom_body_classes');
