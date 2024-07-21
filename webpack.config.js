@@ -100,7 +100,7 @@ module.exports = {
                                 sourceMap: isDevelopment
                             },
                         },
-                        isDevelopment ? 'resolve-url-loader' : null,
+                      
                         {
                             loader: 'postcss-loader',
                             options: {
