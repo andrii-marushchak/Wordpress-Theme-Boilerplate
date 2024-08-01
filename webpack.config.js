@@ -34,16 +34,18 @@ module.exports = {
         ...WebpackEntries
     },
 
-    devtool: isDevelopment ? "eval-source-map" : false,
+    devtool: isDevelopment ? "source-map" : false,
 
     mode: process.env.NODE_ENV, // 'development' or 'production
 
     output: {
         clean: true,
-        filename: 'js/[name].js',
-        sourceMapFilename: "[name].js.map",
         path: path.resolve(__dirname, './assets/dist/'),
+
+        filename: 'js/[name].js',
+
     },
+
 
     externals: {
         jquery: 'jQuery'
