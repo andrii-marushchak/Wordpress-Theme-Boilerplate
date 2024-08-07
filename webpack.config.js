@@ -41,9 +41,8 @@ module.exports = {
     output: {
         clean: true,
         path: path.resolve(__dirname, './assets/dist/'),
-
         filename: 'js/[name].js',
-
+        chunkFormat: false // Disable Chunk
     },
 
 
@@ -71,6 +70,10 @@ module.exports = {
             $: 'jquery',
             jQuery: 'jquery'
         }),
+
+        new webpack.optimize.LimitChunkCountPlugin({
+            maxChunks: 1
+        })
 
     ],
 
