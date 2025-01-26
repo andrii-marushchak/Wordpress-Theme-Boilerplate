@@ -1,7 +1,9 @@
 <?php
 
 function getOS() {
-	$userAgent = $_SERVER['HTTP_USER_AGENT'];
+	if ( ! isset( $_SERVER['HTTP_USER_AGENT'] ) || empty( $_SERVER['HTTP_USER_AGENT'] ) ) {
+		return 'unknown';
+	}
 
 	if ( stripos( $userAgent, 'windows' ) !== false ) {
 		return 'windows';
