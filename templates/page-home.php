@@ -5,9 +5,9 @@
 
 <?php get_header(); ?>
 
-<main class="page-template-home">
+<div class="page-template-home">
 
 
-</main>
+</div>
 
 <?php get_footer(); ?>

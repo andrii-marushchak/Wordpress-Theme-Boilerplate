@@ -12,12 +12,16 @@ const isBuild = process.env.NODE_ENV === 'production';
 const srcFolder = path.resolve(__dirname, '.');
 
 const WebpackEntries = {
-    // General
+    // Theme General
     'theme-global-js': `${srcFolder}/assets/js/theme-global.js`,
     'theme-global-css': `${srcFolder}/assets/css/theme-global.scss`,
 
+    // Editor CSS
+    'editor-styles': `${srcFolder}/assets/css/editor-styles.scss`,
+
     // Admin
-    'admin-css': `${srcFolder}/assets/css/admin.scss`,
+    'admin-css': `${srcFolder}/assets/css/admin-styles.scss`,
+    'admin-js': `${srcFolder}/assets/js/admin.js`,
 
 
     // Example
@@ -47,7 +51,7 @@ module.exports = {
 
 
     externals: {
-        jquery: 'jQuery'
+        //    jquery: 'jQuery'
     },
 
     plugins: [
@@ -65,11 +69,12 @@ module.exports = {
             ignoreOrder: true
         }),
 
-        // todo try to comment it out
-        new webpack.ProvidePlugin({
-            $: 'jquery',
-            jQuery: 'jquery'
-        }),
+        /*
+          new webpack.ProvidePlugin({
+              $: 'jquery',
+              jQuery: 'jquery'
+          }),
+          */
 
         new webpack.optimize.LimitChunkCountPlugin({
             maxChunks: 1
@@ -105,7 +110,7 @@ module.exports = {
                                 sourceMap: isDevelopment
                             },
                         },
-                      
+
                         {
                             loader: 'postcss-loader',
                             options: {
@@ -142,6 +147,7 @@ module.exports = {
                             options: {
                                 sourceMap: isDevelopment,
                                 sassOptions: {
+                                    silenceDeprecations: ['legacy-js-api'],
                                     sourceMapContents: isDevelopment,
                                     outputStyle: "expanded"
                                 }

@@ -1,0 +1,39 @@
+// Variables and Mixins
+@use "../include" as *;
+
+.pagination {
+  margin-top: 50px;
+  
+  ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    border: none;
+    
+    li {
+      border: none;
+      
+      a, span {
+        min-width: 36px;
+        height: 36px;
+        font-size: 16px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 7px;
+        
+        &.current {
+          &:not(.dots) {
+          
+          }
+        }
+        
+        &:hover {
+     
+        }
+      }
+    }
+  }
+}

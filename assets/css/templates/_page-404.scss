@@ -1,0 +1,32 @@
+@use "../include" as *;
+
+
+// PAGE 404
+.error404 {
+  padding-top: 0;
+  
+  .site-content {
+    display: flex;
+    align-items: center;
+    padding: clamp-property(100, 150);
+  }
+}
+
+
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  
+  &__title {
+    font-size: clamp-property(50, 70);
+    margin-bottom: 0.3em;
+  }
+  
+  &__text {
+    font-size: clamp-property(18, 20);
+    margin-bottom: 1.5em;
+  }
+}

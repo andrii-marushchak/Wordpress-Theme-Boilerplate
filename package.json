@@ -1,7 +1,6 @@
 {
-  "name": "hakkoda",
+  "name": "WP theme boilerplate",
   "version": "1.0.0",
-  "description": "Set **webpackModules** if you want to use ES6 imports\r ```js\r const webpackModules = true;\r ```",
   "main": "index.js",
   "devDependencies": {
     "@babel/preset-env": "^7.24.7",
@@ -30,7 +29,9 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack  --mode development --watch",
     "build": "cross-env NODE_ENV=production webpack --mode production",
-    "translate": "wp-pot --src '**/**/**/*.php' --exclude '**/node_modules/**' --exclude '**/vendors/**' --dest-file 'lang/hakkoda.pot' --package '{{hakkoda}}' --domain '{{hakkoda.io}}' --last-translator '{{Andrii}} <{{Andrii_Marushchak@Hakkoda.io}}>'"
+    "translate": "wp-pot --src '**/**/**/*.php' --exclude '**/node_modules/**' --exclude '**/vendors/**' --dest-file 'lang/hakkoda.pot' --package '{{hakkoda}}' --domain '{{hakkoda.io}}' --last-translator '{{Andrii}} <{{Andrii_Marushchak@Hakkoda.io}}>'",
+    "enforce-lf": "sudo find . -type d \\( -path './node_modules' -o -path './vendor' \\) -prune -o -type f -exec dos2unix {} +",
+    "rm-extra-files": "find . -type f -name \"*.Identifier\" -print0 | xargs -0 rm -v"
   },
   "author": "",
   "license": "ISC",

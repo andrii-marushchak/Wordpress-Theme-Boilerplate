@@ -1,29 +1,34 @@
-@charset "UTF-8";
+// Variables and Mixins
+@use "include" as *;
 
-// SCSS/CSS Variables
-@import "vars";
+// Reset Default Browsers styles
+@use "general/sanitize";
 
-// Reset Browsers CSS
-@import "other/reset";
-
-// Fonts
-@import "other/fonts";
-
-// Mixins
-@import "other/mixins";
-
-// Grid
-@import "other/grid";
+// Base styles
+@use "general/base";
+@use "general/utility";
+@use "general/fonts";
+@use "general/grid";
 
 // Typography
-@import "other/typography";
-
-// Utility CSS
-@import "other/utility";
+@use "typography/editor";
+@use "typography/headings";
+@use "typography/table";
+@use "typography/lists";
 
 // Components
-@import "components/btn";
-@import "components/form";
+@use "components/buttons";
+@use "components/form-fields";
+@use "components/article";
+@use "components/breadcrumbs";
 
-// Core Styles -- must be latest
-@import "core";
+// layout
+@use "layout/footer";
+@use "layout/header";
+
+// Templates
+@use "templates/archive";
+@use "templates/page-404";
+
+// Sections
+@use "acf-sections/faq";
