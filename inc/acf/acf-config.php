@@ -26,7 +26,7 @@ if ( ! function_exists( 'theme_name_acf_json_save_point' ) ) {
 	 * @return string Custom save path for ACF JSON files.
 	 */
 	function theme_name_acf_json_save_point( $path ) {
-		$path = THEME_PATH . '/settings/acf/acf-json';
+		$path = THEME_PATH . '/inc/acf/acf-json';
 
 		return $path;
 	}
@@ -47,7 +47,7 @@ if ( ! function_exists( 'theme_name_acf_json_load_point' ) ) {
 	 */
 	function theme_name_acf_json_load_point( $paths ) {
 		unset( $paths[0] ); // Remove default ACF path
-		$paths[] = THEME_PATH . '/settings/acf/acf-json';
+		$paths[] = THEME_PATH . '/inc/acf/acf-json';
 
 		return $paths;
 	}
