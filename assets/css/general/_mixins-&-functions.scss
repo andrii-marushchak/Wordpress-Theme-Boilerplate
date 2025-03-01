@@ -76,7 +76,11 @@
 	$max-size-px: if(math.is-unitless($max-size), $max-size * 1px, $max-size);
 	$min-width-px: if(math.is-unitless($min-width), $min-width * 1px, $min-width);
 	$max-width-px: if(math.is-unitless($max-width), $max-width * 1px, $max-width);
-	@return clamp($min-size-px, calc(1.125rem + ($max-size - $min-size) * ((100vw - $min-width-px) / (1440 - $min-width))), $max-size-px);
+	@return clamp(
+		$min-size-px,
+		calc(#{$min-size-px} + ($max-size - $min-size) * ((100vw - $min-width-px) / ($max-width - $min-width))),
+		$max-size-px
+	);
 }
 
 @mixin clamp-font-size($min-size, $max-size, $min-width: 575, $max-width: 1440) {
