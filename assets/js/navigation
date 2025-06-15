@@ -1,0 +1,160 @@
+import {disablePageScroll, enablePageScroll} from 'scroll-lock';
+
+'use strict';
+
+// Side navigation
+{
+	const sideNavigation = document.querySelector(".side-navbar");
+
+	// Open Mobile Navigation
+	document.querySelector(".btn-toggle-nav")?.addEventListener("click", function (e) {
+		e.preventDefault();
+		sideNavigation.classList.add("active");
+		disablePageScroll();
+	});
+
+	// Close Mobile Navigation
+	document.querySelector(".btn-close-nav")?.addEventListener("click", function (e) {
+		e.preventDefault();
+		sideNavigation.classList.remove("active");
+		enablePageScroll();
+	});
+
+}
+
+// Mobile Menu Dropdown
+{
+	const accordions = document.querySelectorAll(".menu .menu-item-has-children > a .sub-menu-toggle");
+	accordions.forEach((accordion) => {
+		accordion.addEventListener("click", function (e) {
+			if (document.documentElement.clientWidth <= 1024) {
+				e.preventDefault();
+
+				const parentLi = accordion.closest(".menu-item-has-children");
+				const subMenu = parentLi.querySelector(".sub-menu");
+				const isActive = parentLi.classList.contains("active");
+
+				// Close all other accordions
+				accordions.forEach((item) => {
+					const itemParentLi = item.closest(".menu-item-has-children");
+					const itemSubMenu = itemParentLi.querySelector(".sub-menu");
+
+					itemParentLi.classList.remove("active");
+					if (itemSubMenu) {
+						itemSubMenu.style.maxHeight = null;
+					}
+				});
+
+				// Toggle active state and height for the clicked accordion
+				if (!isActive) {
+					parentLi.classList.add("active");
+					if (subMenu) {
+						subMenu.style.maxHeight = `${subMenu.scrollHeight}px`;
+					}
+				}
+			}
+		});
+	});
+
+	/*
+		CSS for Accordion body
+		overflow: hidden;
+		backface-visibility: hidden;
+		max-height: 0;
+		transition: max-height 0.3s ease-out;
+		will-change: max-height;
+	 */
+
+}
+
+// Desktop Dropdown Menu
+{
+
+	const BREAKPOINT = 1024; // Define the breakpoint for screen width
+	const menuItems = document.querySelectorAll(".menu-item-has-children");
+
+	menuItems.forEach((menuItem) => {
+		const megaMenu = menuItem.querySelector(".sub-menu");
+		let mouseOnMegaMenu = false;
+
+		// Link Hover
+		menuItem.addEventListener("mouseover", () => {
+			if (document.documentElement.clientWidth > BREAKPOINT) {
+				document.querySelectorAll(".menu-item-has-children").forEach((el) => el.classList.remove("active"));
+				document.querySelectorAll(".sub-menu").forEach((el) => el.classList.remove("active"));
+
+				menuItem.classList.add("active");
+				if (megaMenu) megaMenu.classList.add("active");
+			}
+		});
+
+		// Touch Start (for touch devices)
+		menuItem.addEventListener("touchstart", (e) => {
+			if (document.documentElement.clientWidth > BREAKPOINT) {
+				e.preventDefault(); // Prevent accidental clicks on touch devices
+				document.querySelectorAll(".menu-item-has-children").forEach((el) => el.classList.remove("active"));
+				document.querySelectorAll(".sub-menu").forEach((el) => el.classList.remove("active"));
+
+				menuItem.classList.add("active");
+				if (megaMenu) megaMenu.classList.add("active");
+			}
+		});
+
+		// Mega Menu Hover
+		if (megaMenu) {
+			megaMenu.addEventListener("mouseover", () => {
+				if (document.documentElement.clientWidth > BREAKPOINT) {
+					mouseOnMegaMenu = true;
+					megaMenu.classList.add("active");
+				}
+			});
+
+			megaMenu.addEventListener("touchstart", () => {
+				if (document.documentElement.clientWidth > BREAKPOINT) {
+					mouseOnMegaMenu = true;
+					megaMenu.classList.add("active");
+				}
+			});
+
+			// Mega Menu Leave
+			megaMenu.addEventListener("mouseleave", () => {
+				if (document.documentElement.clientWidth > BREAKPOINT) {
+					mouseOnMegaMenu = false;
+					setTimeout(() => {
+						if (!mouseOnMegaMenu) {
+							menuItem.classList.remove("active");
+							megaMenu.classList.remove("active");
+						}
+					}, 200);
+				}
+			});
+		}
+
+		// Link Leave
+		menuItem.addEventListener("mouseleave", () => {
+			if (document.documentElement.clientWidth > BREAKPOINT) {
+				setTimeout(() => {
+					if (!mouseOnMegaMenu) {
+						menuItem.classList.remove("active");
+						if (megaMenu) megaMenu.classList.remove("active");
+					}
+				}, 290);
+			}
+		});
+	});
+
+	// Click Outside to close active menu
+	document.addEventListener("click", (e) => {
+		if (document.documentElement.clientWidth > BREAKPOINT) {
+			const activeMenu = document.querySelector(".sub-menu.active");
+			if (activeMenu) {
+				const isInsideMegaMenu = e.target.closest(".mega-menu, .mega-menu-wrap");
+				if (!isInsideMegaMenu) {
+					document.querySelectorAll(".sub-menu.active").forEach((el) => el.classList.remove("active"));
+					document.querySelectorAll(".menu-item-has-children.active").forEach((el) => el.classList.remove("active"));
+				}
+			}
+		}
+	});
+
+}
