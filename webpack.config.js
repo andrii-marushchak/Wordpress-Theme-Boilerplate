@@ -51,7 +51,7 @@ module.exports = {
 
 
     externals: {
-        //    jquery: 'jQuery'
+       jquery: 'jQuery' // use jQuery from WordPress instead of node_modules
     },
 
     plugins: [
