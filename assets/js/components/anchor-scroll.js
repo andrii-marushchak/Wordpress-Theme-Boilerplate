@@ -1,3 +1,6 @@
+'use strict';
+const $ = jQuery.noConflict();
+
 const links = document.querySelectorAll('a[href^="#"]:not(.modal)')
 
 links.forEach((nodeElement) => {
