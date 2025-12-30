@@ -1,12 +1,12 @@
 <?php
 
-if ( ! function_exists( 'theme_domain_get_OS' ) ) {
+if ( ! function_exists( 'it_get_OS' ) ) {
 	/**
 	 * Get the operating system from the user agent.
 	 *
 	 * @return string Operating system (windows, android, ios, macos, linux, unknown)
 	 */
-	function theme_domain_get_OS() {
+	function it_get_OS() {
 		$userAgent = $_SERVER['HTTP_USER_AGENT'];
 
 		if ( stripos( $userAgent, 'windows' ) !== false ) {
@@ -29,7 +29,7 @@ if ( ! function_exists( 'theme_domain_get_OS' ) ) {
 	}
 }
 
-if ( ! function_exists( 'theme_domain_get_post_primary_category' ) ) {
+if ( ! function_exists( 'it_get_post_primary_category' ) ) {
 	/**
 	 * Get the primary category of a post.
 	 *
@@ -39,7 +39,7 @@ if ( ! function_exists( 'theme_domain_get_post_primary_category' ) ) {
 	 *
 	 * @return object|false Primary category object or false if not found.
 	 */
-	function theme_domain_get_post_primary_category( $post_id, $term = 'category', $return_all_categories = false ) {
+	function it_get_post_primary_category( $post_id, $term = 'category', $return_all_categories = false ) {
 		$return = array();
 
 		if ( class_exists( 'WPSEO_Primary_Term' ) ) {
@@ -71,7 +71,7 @@ if ( ! function_exists( 'theme_domain_get_post_primary_category' ) ) {
 	}
 }
 
-if ( ! function_exists( 'theme_domain_get_user_ip' ) ) {
+if ( ! function_exists( 'it_get_user_ip' ) ) {
 	/**
 	 * Get the user's IP address.
 	 *
@@ -88,7 +88,7 @@ if ( ! function_exists( 'theme_domain_get_user_ip' ) ) {
 	}
 }
 
-if ( ! function_exists( 'theme_domain_get_section_id' ) ) {
+if ( ! function_exists( 'it_get_section_id' ) ) {
 	/**
 	 * Generate a section ID from a string.
 	 *
@@ -105,7 +105,7 @@ if ( ! function_exists( 'theme_domain_get_section_id' ) ) {
 	}
 }
 
-if ( ! function_exists( 'theme_domain_clear_phone' ) ) {
+if ( ! function_exists( 'it_clear_phone' ) ) {
 	/**
 	 * Clean a phone number to retain only digits and '+'
 	 *
@@ -113,12 +113,12 @@ if ( ! function_exists( 'theme_domain_clear_phone' ) ) {
 	 *
 	 * @return string|null Cleaned phone number.
 	 */
-	function theme_domain_clear_phone( string $tel ): string|null {
+	function it_clear_phone( string $tel ): string|null {
 		return preg_replace( '/[^+\d]+/', '', $tel );
 	}
 }
 
-if ( ! function_exists( 'theme_domain_email' ) ) {
+if ( ! function_exists( 'it_email' ) ) {
 	/**
 	 * Obfuscate an email address to prevent spam.
 	 *
@@ -126,12 +126,12 @@ if ( ! function_exists( 'theme_domain_email' ) ) {
 	 *
 	 * @return string Obfuscated email.
 	 */
-	function theme_domain_email( $email ) {
+	function it_email( $email ) {
 		return antispambot( $email );
 	}
 }
 
-if ( ! function_exists( 'theme_domain_log' ) ) {
+if ( ! function_exists( 'it_log' ) ) {
 	/**
 	 * Log a variable to a file.
 	 *
@@ -141,7 +141,7 @@ if ( ! function_exists( 'theme_domain_log' ) ) {
 	 *
 	 * @return bool True on success, false on failure.
 	 */
-	function theme_domain_log( mixed $variable, string|null $label = null, string $file = ABSPATH . 'debug.log' ): bool {
+	function it_log( mixed $variable, string|null $label = null, string $file = ABSPATH . 'debug.log' ): bool {
 		$logfile     = $file;
 		$date_format = 'Y-m-d H:i:s';
 		$output      = '[' . gmdate( $date_format ) . '] ' . ( $label ? "($label) " : '' ) . print_r( $variable, true ) . "\n";
@@ -150,14 +150,14 @@ if ( ! function_exists( 'theme_domain_log' ) ) {
 	}
 }
 
-if ( ! function_exists( 'theme_domain_console_log' ) ) {
+if ( ! function_exists( 'it_console_log' ) ) {
 	/**
 	 * Output PHP variables to the browser console.
 	 *
 	 * @param string|null $content Content to display.
 	 * @param bool $as_text Whether to display as text or JS object.
 	 */
-	function theme_domain_console_log( null|string $content = null, bool $as_text = true ): void {
+	function it_console_log( null|string $content = null, bool $as_text = true ): void {
 		echo '<div class="php-to-js-console-log" style="display: none!important;" data-as-text="' . esc_attr( $as_text ) . '" data-variable="' . htmlspecialchars( wp_json_encode( $content ) ) . '">' . htmlspecialchars( var_export( $content,
 				true ) ) . '</div>';
 		$hook = is_admin() ? 'admin_footer' : 'wp_footer';
@@ -171,7 +171,7 @@ if ( ! function_exists( 'theme_domain_console_log' ) ) {
 	}
 }
 
-if ( ! function_exists( 'theme_domain_excerpt' ) ) {
+if ( ! function_exists( 'it_excerpt' ) ) {
 	/**
 	 * Limit Excerpt Length
 	 *
@@ -179,7 +179,7 @@ if ( ! function_exists( 'theme_domain_excerpt' ) ) {
 	 *
 	 * @return string
 	 */
-	function theme_domain_excerpt( int $word_limit ): string {
+	function it_excerpt( int $word_limit ): string {
 
 		$excerpt = explode( ' ', get_the_excerpt(), $word_limit );
 
@@ -196,13 +196,13 @@ if ( ! function_exists( 'theme_domain_excerpt' ) ) {
 	}
 }
 
-if ( ! function_exists( 'theme_domain_post_date' ) ) {
+if ( ! function_exists( 'it_post_date' ) ) {
 
 	/**
 	 * Prints HTML with meta information for the current post-date/time.
 	 * @return string
 	 */
-	function theme_domain_post_date(): string {
+	function it_post_date(): string {
 		$time_string = '<time class="entry-date published updated" datetime="%1$s">%2$s</time>';
 
 		if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
@@ -222,7 +222,7 @@ if ( ! function_exists( 'theme_domain_post_date' ) ) {
 
 }
 
-if ( ! function_exists( 'theme_domain_get_section_id' ) ) :
+if ( ! function_exists( 'it_get_section_id' ) ) :
 	/**
 	 * Convert a string into a valid section ID by sanitizing it.
 	 *
@@ -238,7 +238,7 @@ if ( ! function_exists( 'theme_domain_get_section_id' ) ) :
 	 *
 	 * @return string The sanitized string, suitable for use as a section ID.
 	 */
-	function theme_domain_get_section_id( $str ) {
+	function it_get_section_id( $str ) {
 		$str = strtolower( $str );
 
 		// Convert HTML entities into their actual characters.
@@ -286,3 +286,44 @@ if ( ! function_exists( 'theme_domain_get_section_id' ) ) :
 	}
 
 endif;
+
+if ( ! function_exists( 'it_print_acf_title' ) ) {
+
+	/**
+	 * Render title & subtitle from ACF component.
+	 * IMPORTANT: Make sure that component is cloned as a group.
+	 *
+	 * @param array<string, string|string[]> $group title component group.
+	 *
+	 * @return void
+	 */
+	function it_print_acf_title( array $group = [] ): void {
+
+		$title_group = ! empty( $group ) ? $group : get_sub_field( 'title' );
+
+		if ( empty( $title_group ) ) {
+			return;
+		}
+
+		$title   = $title_group['the_title'] ?? '';
+		$tag     = $title_group['tag'] ?? 'h2';
+		$class   = $title_group['title_class'] ?? 'h2';
+		$classes = 'it-title-group';
+
+		if ( empty( $title ) ) {
+			return;
+		}
+		?>
+
+		<div class="<?php echo esc_attr( $classes ); ?>">
+			<?php printf(
+				' <%1$s class="it-title %2$s" >%3$s </%1$s > ',
+				esc_attr( $tag ),
+				esc_attr( $class ),
+				wp_kses_post( $title )
+			); ?>
+		</div>
+
+		<?php
+	}
+}

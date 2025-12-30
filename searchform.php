@@ -2,7 +2,7 @@
 /**
  * The template for displaying search forms
  *
- * @package _theme_domain_start
+ * @package _it_start
  */
 
 // Enable strict typing mode.

@@ -1,17 +1,32 @@
 <?php
 /**
  * Disabling dashboard widgets
+ *
+ * @package starter
+ * @subpackage disables
  */
 
-if ( ! function_exists( 'theme_domain_remove_dashboard_widgets' ) ) {
+// Enable strict typing mode.
+declare( strict_types=1 );
+
+// Disable direct access.
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'Access denied' );
+}
+
+if ( ! function_exists( 'it_remove_dashboard_widgets' ) ) {
 
 	/**
 	 * Removes default dashboard widgets.
 	 *
 	 * @return void
 	 */
-	function theme_domain_remove_dashboard_widgets(): void {
-		//remove_action( 'welcome_panel', 'wp_welcome_panel' ); // WP welcome page.
+	function it_remove_dashboard_widgets(): void {
+
+		// Yoast
+		remove_meta_box( 'wpseo-dashboard-overview', 'dashboard', 'normal' ); // Recent Comments.
+		remove_meta_box( 'wpseo-wincher-dashboard-overview', 'dashboard', 'normal' ); // Recent Comments.
+
 		remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' ); // Quick Press widget.
 		remove_meta_box( 'dashboard_recent_drafts', 'dashboard', 'side' ); // Recent Drafts.
 		remove_meta_box( 'dashboard_primary', 'dashboard', 'side' ); // WordPress.com Blog.
@@ -23,13 +38,9 @@ if ( ! function_exists( 'theme_domain_remove_dashboard_widgets' ) ) {
 		remove_meta_box( 'dashboard_activity', 'dashboard', 'normal' ); // Activity.
 		remove_meta_box( 'dashboard_right_now', 'dashboard', 'normal' ); // Right Now.
 		remove_meta_box( 'dashboard_recent_comments', 'dashboard', 'normal' ); // Recent Comments.
-		remove_meta_box( 'dashboard_site_health', 'dashboard', 'normal' ); // Site Health.
-
-		// Yoast
-		remove_meta_box( 'wpseo-dashboard-overview', 'dashboard', 'normal' ); // Recent Comments.
-		remove_meta_box( 'wpseo-wincher-dashboard-overview', 'dashboard', 'normal' ); // Recent Comments.
+		remove_meta_box( 'catf_dashboard_widget', 'dashboard', 'normal' ); // CatFolders Overview.
 	}
 
-	add_action( 'wp_dashboard_setup', 'theme_domain_remove_dashboard_widgets' );
+	add_action( 'wp_dashboard_setup', 'it_remove_dashboard_widgets' );
 
 }

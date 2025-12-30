@@ -1,17 +1,25 @@
 <?php
 /**
  * Disable Comments
+ *
+ * @package starter
+ * @subpackage disables
  */
 
 // Enable strict typing mode.
 declare( strict_types = 1 );
 
-if ( ! function_exists( 'theme_domain_redirect_from_comments_page' ) ) {
+// Disable direct access.
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'Access denied' );
+}
+
+if ( ! function_exists( 'it_redirect_from_comments_page' ) ) {
 
 	/**
 	 * Redirects from the comments page to the admin dashboard.
 	 */
-	function theme_domain_redirect_from_comments_page(): void {
+	function it_redirect_from_comments_page(): void {
 		global $pagenow;
 
 		if ( 'edit-comments.php' === $pagenow ) {
@@ -20,18 +28,18 @@ if ( ! function_exists( 'theme_domain_redirect_from_comments_page' ) ) {
 		}
 	}
 
-	add_action( 'admin_init', 'theme_domain_redirect_from_comments_page' );
+	add_action( 'admin_init', 'it_redirect_from_comments_page' );
 
 }
 
-if ( ! function_exists( 'theme_domain_redirect_from_comments_page' ) ) {
+if ( ! function_exists( 'it_redirect_from_comments_page' ) ) {
 
 	/**
 	 * Callback function to disable support for comments and trackbacks in post types.
 	 *
 	 * @return void
 	 */
-	function theme_domain_disable_trackbacks_support(): void {
+	function it_disable_trackbacks_support(): void {
 
 		foreach ( get_post_types() as $post_type ) {
 
@@ -46,7 +54,7 @@ if ( ! function_exists( 'theme_domain_redirect_from_comments_page' ) ) {
 		}
 	}
 
-	add_action( 'admin_init', 'theme_domain_disable_trackbacks_support' );
+	add_action( 'admin_init', 'it_disable_trackbacks_support' );
 
 }
 

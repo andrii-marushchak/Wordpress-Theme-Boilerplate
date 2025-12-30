@@ -7,7 +7,7 @@
 // Enable strict typing mode.
 declare( strict_types = 1 );
 
-if ( ! function_exists( 'theme_domain_paginate_links' ) ) {
+if ( ! function_exists( 'it_paginate_links' ) ) {
 
 	/**
 	 * Filter function used to modify pagination links.
@@ -18,7 +18,7 @@ if ( ! function_exists( 'theme_domain_paginate_links' ) ) {
 	 *
 	 * @return string The modified paginated link.
 	 */
-	function theme_domain_paginate_links( string $link ): string {
+	function it_paginate_links( string $link ): string {
 		if ( is_paged() ) {
 			$link = str_replace( 'page/1/', '', $link );
 		}
@@ -26,7 +26,7 @@ if ( ! function_exists( 'theme_domain_paginate_links' ) ) {
 		return $link;
 	}
 
-	add_filter( 'paginate_links', 'theme_domain_paginate_links' );
+	add_filter( 'paginate_links', 'it_paginate_links' );
 
 }
 
@@ -44,8 +44,8 @@ $args = array(
 	'end_size'     => 2,
 	'mid_size'     => 1,
 	'prev_next'    => true,
-	'prev_text'    => esc_html__( '&larr; Prev', '_theme_domain_start' ),
-	'next_text'    => esc_html__( 'Next &rarr;', '_theme_domain_start' ),
+	'prev_text'    => esc_html__( '&larr; Prev', '_it_start' ),
+	'next_text'    => esc_html__( 'Next &rarr;', '_it_start' ),
 	'add_args'     => false,
 	'add_fragment' => '',
 );

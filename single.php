@@ -16,7 +16,7 @@ the_post();
             <header class="post-header">
                 <h1 class="post-title"><?php the_title(); ?></h1>
                 <div class="entry-meta">
-					<?php echo theme_domain_post_date() ?>
+					<?php echo it_post_date() ?>
                 </div>
             </header>
 
@@ -26,7 +26,7 @@ the_post();
 
 				wp_link_pages(
 					array(
-						'before' => '<div class="page-links">' . esc_html__( 'Pages:', '_theme_domain_start' ),
+						'before' => '<div class="page-links">' . esc_html__( 'Pages:', '_it_start' ),
 						'after'  => '</div>',
 					)
 				);
@@ -35,8 +35,8 @@ the_post();
 				<?php
 				the_post_navigation(
 					array(
-						'prev_text' => '<span class="nav-subtitle">' . esc_html__( 'Previous:', '_theme_domain_start' ) . '</span> <span class="nav-title">%title</span>',
-						'next_text' => '<span class="nav-subtitle">' . esc_html__( 'Next:', '_theme_domain_start' ) . '</span> <span class="nav-title">%title</span>',
+						'prev_text' => '<span class="nav-subtitle">' . esc_html__( 'Previous:', '_it_start' ) . '</span> <span class="nav-title">%title</span>',
+						'next_text' => '<span class="nav-subtitle">' . esc_html__( 'Next:', '_it_start' ) . '</span> <span class="nav-title">%title</span>',
 					)
 				);
 

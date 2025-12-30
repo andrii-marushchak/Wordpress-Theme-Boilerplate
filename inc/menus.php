@@ -1,6 +1,6 @@
 <?php
 
-function theme_name_intheme_domain_navigation() {
+function theme_name_init_navigation() {
 	register_nav_menus(
 		array(
 			'footer' => 'Footer Menu',
@@ -9,7 +9,7 @@ function theme_name_intheme_domain_navigation() {
 	);
 }
 
-add_action( 'after_setup_theme', 'theme_name_intheme_domain_navigation' );
+add_action( 'after_setup_theme', 'theme_name_init_navigation' );
 
 
 // Menu foreach setup (link icons | mega-menu | disabled link)

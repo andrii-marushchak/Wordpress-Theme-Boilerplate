@@ -1,23 +1,25 @@
 <?php declare( strict_types=1 );
+
 get_header();
+
 the_post(); ?>
 
-<?php get_template_part( 'template-parts/breadcrumbs' ); ?>
 
-<?php if ( have_rows( 'builder' ) ) : ?>
+<?php if ( function_exists( 'has_flexible' ) && has_flexible( 'builder' ) ) : ?>
 
-	<?php get_template_part( 'template-parts/acf-builder' ); ?>
+	<?php the_flexible( 'builder' ); ?>
 
 <?php else : ?>
 
-    <div class="container">
-        <h1 class="entry-title"><?php the_title(); ?></h1>
-        <section class="editor entry-content">
-		    <?php the_content(); ?>
-        </section>
-    </div>
+	<div class="container">
+		<h1 class="entry-title h2"><?php the_title(); ?></h1>
+
+		<div class="editor entry-content">
+			<?php the_content(); ?>
+		</div>
+
+	</div>
 
 <?php endif; ?>
 
-<?php
-get_footer();
+<?php get_footer();

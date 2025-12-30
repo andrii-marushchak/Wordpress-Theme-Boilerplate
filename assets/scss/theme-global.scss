@@ -20,7 +20,6 @@
 @use "components/buttons";
 @use "components/form-fields";
 @use "components/article";
-@use "components/breadcrumbs";
 
 // layout
 @use "layout/footer";
@@ -29,6 +28,3 @@
 // Templates
 @use "templates/archive";
 @use "templates/page-404";
-
-// Sections
-@use "acf-sections/faq";

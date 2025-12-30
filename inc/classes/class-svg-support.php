@@ -1,10 +1,17 @@
 <?php
 /**
  * Allow SVG through WordPress Media Uploader
+ *
+ * @package starter
  */
 
 // Enable strict typing mode.
 declare( strict_types = 1 );
+
+// Disable direct access.
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'Access denied' );
+}
 
 /**
  * Class to add svg support onto website.
@@ -33,7 +40,7 @@ final class SVG_Support {
 	 * @return   bool
 	 * @since    1.0.0
 	 */
-	public function svg_is_edtheme_domain_page( null|string $new_edit = null ): bool {
+	public function svg_is_edit_page( null|string $new_edit = null ): bool {
 
 		global $pagenow;
 
@@ -276,19 +283,19 @@ final class SVG_Support {
 
 		?>
 		<style>
-            .attachment svg, .widget_media_image svg {
-                max-width: 100%;
-                height: auto
-            }
+			.attachment svg, .widget_media_image svg {
+				max-width: 100%;
+				height: auto
+			}
 
-            body #set-post-thumbnail, body #postimagediv .inside img[src$=".svg"] {
-                width: 100%
-            }
+			body #set-post-thumbnail, body #postimagediv .inside img[src$=".svg"] {
+				width: 100%
+			}
 
-            td.media-icon img[src$=".svg"], img[src$=".svg"].attachment-post-thumbnail {
-                width: 100% !important;
-                height: auto !important
-            }
+			td.media-icon img[src$=".svg"], img[src$=".svg"].attachment-post-thumbnail {
+				width: 100% !important;
+				height: auto !important
+			}
 		</style>
 		<?php
 	}

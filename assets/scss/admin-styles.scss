@@ -1,0 +1,75 @@
+// ACF Select
+.select2-container {
+  .select2-dropdown {
+    .select2-search--dropdown {
+      .select2-search__field {
+        border: 1px solid #0061FB !important;
+      }
+    }
+  }
+
+
+
+}
+
+.select2-container--default .select2-results > .select2-results__options{
+  max-height: 500px!important;
+}
+
+// acf-beautiful-flexible
+.wp-admin {
+  .acf-fc-popup ul li a {
+    height: auto;
+    aspect-ratio: 16 / 11;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+    &:hover {
+      background-repeat: no-repeat;
+    }
+  }
+}
+
+.acfe-modal {
+
+	// Thumbnail styles for ACF-Extended modal.
+	.acfe-flexible-layout-thumbnail {
+		background-size: contain;
+		background-position: center center;
+		background-repeat: no-repeat;
+	}
+
+	.acfe-fc-layout-thumb {
+
+		img {
+			object-fit: contain;
+		}
+	}
+}
+
+.acf-fields {
+
+	// Add border to ACF-Extended column.
+	&.acfe-column-wrapper {
+
+		> .acf-field {
+
+			&.acf-field-acfe-column {
+				border-right: 1px solid #eaecf0;
+				border-top: 1px solid #eaecf0 !important;
+			}
+		}
+	}
+
+	// Preview styles for ACF-Extended layout.
+	.layout {
+
+		.acfe-fc-placeholder {
+			background-size: contain;
+			background-position: center center;
+			background-repeat: no-repeat;
+			height: 280px;
+		}
+	}
+}

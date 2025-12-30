@@ -1,31 +1,34 @@
-const links = document.querySelectorAll('a[href^="#"]:not(.modal)')
+'use strict';
 
-links.forEach((nodeElement) => {
-	nodeElement.addEventListener('click', function (e) {
-		e.preventDefault()
+export const AnchorScroll = () => {
+	const links = document.querySelectorAll('a[href^="#"]:not(.modal)')
 
-		const href = this.getAttribute('href')
+	links.forEach((nodeElement) => {
+		nodeElement.addEventListener('click', function (e) {
+			e.preventDefault()
 
-		if (href === '#') {
-			return false;
-		} else {
-			const section = document.querySelector(href)
-			if (section) {
+			const href = this.getAttribute('href')
 
-				let offset = section.getBoundingClientRect().top + window.scrollY
-				const wpAdminBar = document.getElementById('wpadminbar')
-
-				if (wpAdminBar) {
-					offset -= wpAdminBar.offsetHeight
-				}
-
-				window.scrollTo({top: offset, behavior: 'smooth'})
-
-			} else {
+			if (href === '#') {
 				return false;
+			} else {
+				const section = document.querySelector(href)
+				if (section) {
+
+					let offset = section.getBoundingClientRect().top + window.scrollY
+					const wpAdminBar = document.getElementById('wpadminbar')
+
+					if (wpAdminBar) {
+						offset -= wpAdminBar.offsetHeight
+					}
+
+					window.scrollTo({top: offset, behavior: 'smooth'})
+
+				} else {
+					return false;
+				}
 			}
-		}
 
+		})
 	})
-})
-
+};

@@ -20,7 +20,7 @@
 
     <div class="site-footer__copyright">
         <div class="container">
-            <span>&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> <?php esc_html_e( 'All rights reserved', '_theme_domain_start' ); ?></span>
+            <span>&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> <?php esc_html_e( 'All rights reserved', '_it_start' ); ?></span>
         </div>
     </div>
 </footer>

@@ -14,7 +14,7 @@ if ( ! function_exists( 'theme_name_theme_support_settings' ) ) {
 		 * Make theme available for translation.
 		 * Translations can be filed in the /lang/ directory.
 		 */
-		load_theme_textdomain( 'theme_domain', get_template_directory() . '/lang' );
+		load_theme_textdomain( 'it', get_template_directory() . '/lang' );
 
 		/*
 		 * Let WordPress manage the document title.
@@ -62,7 +62,7 @@ if ( ! function_exists( 'theme_name_theme_support_settings' ) ) {
 
 }
 
-if ( ! function_exists( 'theme_domain_slug_body_class' ) ) {
+if ( ! function_exists( 'it_slug_body_class' ) ) {
 
 	/**
 	 * Adds the page slug to the <body> class.
@@ -76,7 +76,7 @@ if ( ! function_exists( 'theme_domain_slug_body_class' ) ) {
 	function theme_name_add_custom_body_class( array $classes ): array {
 		global $post;
 
-		$classes[] = 'os-' . theme_domain_get_OS();
+		$classes[] = 'os-' . it_get_OS();
 
 		if ( isset( $post ) ) {
 			$classes[] = $post->post_type . '-' . $post->post_name;

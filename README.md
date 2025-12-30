@@ -1,7 +1,7 @@
 ### Run Dev Server
 
 ```bash
-npm run start
+gulp
 ```
 
 ### Generate .pot file
@@ -13,5 +13,5 @@ npm run translate
 ### Butild Project
 
 ```bash
-npm run build
+gulp build
 ```
