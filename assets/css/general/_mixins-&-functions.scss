@@ -70,23 +70,27 @@
 
 // https://websemantics.uk/tools/responsive-font-calculator/
 // font-size: clamp(18px, calc(1.125rem + (26 - 18) * ((100vw - 575px) / (1440 - 575))), 26px);
+@function _ensure-px($value) {
+	@if math.is-unitless($value) {
+		@return $value * 1px;
+	}
+	@return $value;
+}
+
 @function clamp-property($start, $end, $min-width: 575px, $max-width: 1440px) {
-  $start: if(math.is-unitless($start), $start * 1px, $start);
-  $end: if(math.is-unitless($end), $end * 1px, $end);
-  
-  $min: min($start, $end);
-  $max: max($start, $end);
-  
-  // unitless slope
-  $slope: math.div($end - $start, $max-width - $min-width);
-  
-  @return clamp(
-          #{$min},
-          calc(
-                  #{$start} + #{$slope} * (100vw - #{$min-width})
-          ),
-          #{$max}
-  );
+	$start: _ensure-px($start);
+	$end:   _ensure-px($end);
+
+	$min-width: _ensure-px($min-width);
+	$max-width: _ensure-px($max-width);
+
+	$slope: math.div($end - $start, $max-width - $min-width);
+
+	@return clamp(
+		#{min($start, $end)},
+		calc(#{$start} + #{$slope} * (100vw - #{$min-width})),
+		#{max($start, $end)}
+	);
 }
 
 @mixin clamp-font-size($min-size, $max-size, $min-width: 575, $max-width: 1440) {
